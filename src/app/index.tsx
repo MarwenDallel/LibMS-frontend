@@ -19,6 +19,7 @@ import { AddBookPage } from './pages/AddBookPage/Loadable';
 
 import { useTranslation } from 'react-i18next';
 import { UserGreeting } from './pages/UserGreeting/Loadable';
+import { BooksPage } from './pages/BooksPage/Loadable';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -49,6 +50,7 @@ export function App() {
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/user" component={UserGreeting} />
         <Route exact path="/add-book" component={AddBookPage} />
+        <Route exact path="/book" component={BooksPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>

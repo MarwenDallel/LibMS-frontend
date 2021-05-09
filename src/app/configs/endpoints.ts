@@ -8,5 +8,6 @@ export const AUTH_ENDPOINTS = {
 };
 
 export const BOOK_ENDPOINTS = {
-  addBook: `${BASE_URL}/${SUFFIX}/book`,
+  addBook: `${BASE_URL}/${SUFFIX}/books`,
+  ListBook: `${BASE_URL}/${SUFFIX}/Listbook`,
 };
