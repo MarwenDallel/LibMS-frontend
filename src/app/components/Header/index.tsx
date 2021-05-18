@@ -4,11 +4,11 @@
  *
  */
 import React, { memo } from 'react';
-import styled from 'styled-components/macro';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components/macro';
 import HeaderLogo from './assets/SMU-LOGO.png';
 
 interface Item {
@@ -17,7 +17,7 @@ interface Item {
 }
 
 interface Props {
-  title: string;
+  title?: string;
   navItems: Item[];
   account: boolean;
 }
@@ -41,12 +41,16 @@ export const Header = memo(({ title, navItems, account, ...props }: Props) => {
         <BottomNavbar.Toggle aria-controls="responsive-navbar-nav" />
         <BottomNavbar.Collapse id="responsive-navbar-nav">
           <Container className="justify-content-center justify-content-md-between">
-            {title.length ? (
+            {title?.length ? (
               <div className="font-weight-light mr-0 text-white">{title}</div>
             ) : (
               <Nav className="mx-auto">
-                {navItems.map(item => (
-                  <Nav.Link href={item.link} className="text-white px-5">
+                {navItems.map((item, i) => (
+                  <Nav.Link
+                    href={item.link}
+                    className="text-white px-5"
+                    key={i}
+                  >
                     {' '}
                     {item.name}{' '}
                   </Nav.Link>
