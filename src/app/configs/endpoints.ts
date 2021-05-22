@@ -24,9 +24,9 @@ export const AUTHOR_ENDPOINTS = {
 };
 
 export const RESERVATION_ENDPOINTS = {
-  reservations: RESERVATION_PREFIX,
-  acceptReservation: RESERVATION_PREFIX,
-  rejectReservation: RESERVATION_PREFIX,
+  reservations: `${API_PREFIX}/reservation/reservations`,
+  acceptReservation: `${API_PREFIX}/reservation/accept-reservation`,
+  userReservations: `${API_PREFIX}/reservations/@me`,
 };
 
 export const ASSETS_ENDPOINTS = {

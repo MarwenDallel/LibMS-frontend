@@ -16,8 +16,8 @@ export const selectBooks = createSelector(
   memeberBooksState => memeberBooksState.books,
 );
 
-export const selectMemberBooksByISBN = (isbn: string) => {
+export const selectMemberBooksById = (id: string) => {
   return createSelector([selectSlice], state =>
-    state.books.filter(b => b.isbn === isbn),
+    state.books.filter(b => b.id === id),
   );
 };

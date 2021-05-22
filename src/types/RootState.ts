@@ -4,6 +4,7 @@ import { LoginUserState } from 'app/pages/CommonPages/LoginPage/LoginForm/slice/
 import { LogoutUserState } from 'app/pages/CommonPages/LogoutPage/slice/types';
 import { RegisterUserState } from 'app/pages/CommonPages/RegisterPage/RegisterForm/slice/types';
 import { UserProfileState } from 'app/pages/CommonPages/UserProfilePage/slice/types';
+import { MemberReservationsState } from 'app/pages/CommonPages/UserReservationsPage/slice/types';
 import { AddBookState } from 'app/pages/LibrarianPages/AddBookPage/AddBookForm/slice/types';
 import { AddBookAuthorsState } from 'app/pages/LibrarianPages/AddBookPage/components/AuthorsAutoComplete/slice/types';
 import { BooksState } from 'app/pages/LibrarianPages/BooksPage/BooksList/slice/types';
@@ -25,4 +26,5 @@ export interface RootState {
   userProfile: UserProfileState;
   reservations: ReservationsState;
   memberBooks: MemberBooksState;
+  memberReservations: MemberReservationsState;
 }

@@ -12,8 +12,17 @@ describe('configureStore', () => {
     );
   });
 
-  it('should return an empty store', () => {
+  it('should return store with initial reducers', () => {
     const store = configureAppStore();
-    expect(store.getState()).toBeUndefined();
+    expect(store.getState()).toMatchObject({
+      memberReservations: {
+        hasFetched: false,
+        isFailed: false,
+        isFetching: false,
+        isSuccess: false,
+        message: '',
+        reservations: [],
+      },
+    });
   });
 });

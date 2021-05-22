@@ -74,6 +74,10 @@ exports[`<App /> should render and match the snapshot 1`] = `
     <AuthenticatedRoute
       component={[Function]}
       exact={true}
+      path="/books/:id"
+    />
+    <AuthenticatedRoute
+      component={[Function]}
       path="/books"
       roles={
         Array [
