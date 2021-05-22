@@ -6,9 +6,10 @@
 import { Footer } from 'app/components/Footer';
 import { Header } from 'app/components/Header';
 import * as React from 'react';
-import { Button, Container, Spinner } from 'react-bootstrap';
+import { ButtonGroup, Container, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components/macro';
 import { useUserProfileSlice } from './slice';
 import {
   selectFirstName,
@@ -39,9 +40,9 @@ export function UserProfilePage(props: Props) {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header title="My SMU-Library Account" navItems={[]} account={false} />
-      <Container className="text-center wrapper flex-grow-1 mt-5">
+      <Container className="text-center wrapper flex-grow-1 my-5">
         <div
-          className="d-block mt-5 mb-5 font-weight-light"
+          className="d-block font-weight-light mb-5"
           style={{ fontSize: '2em' }}
         >
           Welcome{' '}
@@ -51,16 +52,43 @@ export function UserProfilePage(props: Props) {
             firstName + ' ' + lastName
           )}
         </div>
-        <div>
-          <Link to="/dashboard/books">
-            <Button className="mr-5"> Continue to Dashboard</Button>
-          </Link>
-          <Link to="add-book">
-            <Button> Add Book to inventory</Button>
-          </Link>
-        </div>
+        <ButtonContainer>
+          <ButtonGroup
+            className="d-flex justify-content-center"
+            size="lg"
+            vertical
+          >
+            <Link
+              className="btn btn-warning w-100 btn-block"
+              role="button"
+              to="/dashboard/books"
+            >
+              Continue to Dashboard
+            </Link>
+            <Link
+              className="btn btn-primary w-100 btn-block"
+              role="button"
+              to="/books"
+            >
+              List of Books
+            </Link>
+            <Link
+              className="btn btn-success w-100 btn-block"
+              role="button"
+              to="/add-book"
+            >
+              Add a Book
+            </Link>
+          </ButtonGroup>
+        </ButtonContainer>
       </Container>
       <Footer />
     </div>
   );
 }
+
+const ButtonContainer = styled(Container)`
+  @media (min-width: 768px) {
+    max-width: 40rem !important;
+  }
+`;

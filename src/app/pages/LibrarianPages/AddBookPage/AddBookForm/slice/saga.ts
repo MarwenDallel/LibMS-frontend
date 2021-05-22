@@ -4,11 +4,11 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import objectToFormData from 'utils/form-data';
 import request from 'utils/request';
 import { addBookActions as actions, addBookActions } from '.';
-import { Book } from './types';
+import { AddBookState } from './types';
 
 export function* addBookSaga(action) {
   try {
-    const book: Book = {
+    const book: AddBookState = {
       isbn: action.payload.isbn,
       title: action.payload.title,
       authors: action.payload.authors,

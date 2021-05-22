@@ -8,6 +8,7 @@ import { AddBookState } from 'app/pages/LibrarianPages/AddBookPage/AddBookForm/s
 import { AddBookAuthorsState } from 'app/pages/LibrarianPages/AddBookPage/components/AuthorsAutoComplete/slice/types';
 import { BooksState } from 'app/pages/LibrarianPages/BooksPage/BooksList/slice/types';
 import { ReservationsState } from 'app/pages/LibrarianPages/ReservationsPage/ReservationsList/slice/types';
+import { MemberBooksState } from 'app/pages/MemberPages/BooksPage/slice/types';
 
 /* 
   Because the redux-injectors injects your reducers asynchronously somewhere in your code
@@ -23,4 +24,5 @@ export interface RootState {
   logoutUser: LogoutUserState;
   userProfile: UserProfileState;
   reservations: ReservationsState;
+  memberBooks: MemberBooksState;
 }

@@ -4,6 +4,7 @@ interface Image {
   name: string;
 }
 export interface Book {
+  id: string;
   isbn: string;
   title: string;
   subtitle?: string;
@@ -17,10 +18,10 @@ export interface Book {
   copiesNbr: number;
 }
 
-export interface AddBookState extends Book {
-  isFetching: boolean;
-  isSuccess: boolean;
-  isError: boolean;
-  errorMessage: string;
-  successMessage: string;
+export interface AddBookState extends Omit<Book, 'id'> {
+  isFetching?: boolean;
+  isSuccess?: boolean;
+  isError?: boolean;
+  errorMessage?: string;
+  successMessage?: string;
 }
