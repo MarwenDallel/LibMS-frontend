@@ -25,7 +25,7 @@ export const AUTHOR_ENDPOINTS = {
 
 export const RESERVATION_ENDPOINTS = {
   reservations: RESERVATION_PREFIX,
-  acceptReservation: `${RESERVATION_PREFIX}/accept-reservation`,
+  acceptReservation: `${RESERVATION_PREFIX}/accept`,
 };
 
 export const ASSETS_ENDPOINTS = {
