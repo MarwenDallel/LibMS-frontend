@@ -10,8 +10,9 @@ export const USER_ENDPOINTS = {
 };
 
 export const AUTH_ENDPOINTS = {
-  login: `${USER_PREFIX}/auth`,
-  refresh: `${USER_PREFIX}/refresh`,
+  login: `${API_PREFIX}/users/auth`,
+  refresh: `${API_PREFIX}/users/refresh`,
+  register: `${API_PREFIX}/users`,
 };
 
 export const BOOK_ENDPOINTS = {
@@ -24,9 +25,10 @@ export const AUTHOR_ENDPOINTS = {
 };
 
 export const RESERVATION_ENDPOINTS = {
-  reservations: `${API_PREFIX}/reservation/reservations`,
-  acceptReservation: `${API_PREFIX}/reservation/accept-reservation`,
-  userReservations: `${API_PREFIX}/reservations/@me`,
+  reservations: RESERVATION_PREFIX,
+  acceptReservation: RESERVATION_PREFIX,
+  userReservations: `${RESERVATION_PREFIX}/@me`,
+  createReservation: `${RESERVATION_PREFIX}/`,
 };
 
 export const ASSETS_ENDPOINTS = {

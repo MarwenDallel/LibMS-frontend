@@ -10,6 +10,7 @@ import { selectMemberBooksById } from 'app/pages/MemberPages/BooksPage/slice/sel
 import * as React from 'react';
 import { useEffect } from 'react';
 import {
+  Alert,
   Button,
   Col,
   Container,
@@ -25,6 +26,8 @@ import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useMemberReservationsSlice } from '../UserReservationsPage/slice';
 import {
+  selectBookRequestFailed,
+  selectBookRequestSucceeded,
   selectHasFetched,
   selectIsSuccess,
   selectReservationByBookId,
@@ -45,7 +48,6 @@ export function BookDescRequestPage(props: Props) {
   let { id } = useParams<{ id: string }>();
 
   const selectedBook = useSelector(selectMemberBooksById(id))[0];
-  console.log('[SELECTED_BOOK]', selectedBook, id);
 
   // Placeholders until BookEntity is refactored
   const nbrOfAvailableCopies: number = 30;
@@ -58,10 +60,18 @@ export function BookDescRequestPage(props: Props) {
 
   const [canBorrow, setCanBorrow] = React.useState(true);
   const [cantBorrowMsg, setCantBorrowMsg] = React.useState('');
+  const [showSuccess, setShowSuccess] = React.useState(false);
 
-  const useEffectOnMount = (effect: React.EffectCallback) => {
+  // Listening for borrow request status: Succeeded or Failed
+  const hasBorrowRequestSucceeded = useSelector(selectBookRequestSucceeded);
+  const hasBorrowRequestFailed = useSelector(selectBookRequestFailed);
+
+  const useEffectOnMount = (
+    effect: React.EffectCallback,
+    dependencies: any[],
+  ) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(effect, [reservationWithISBN]);
+    useEffect(effect, [...dependencies]);
   };
 
   // Note that multiple conditions can be true
@@ -84,35 +94,16 @@ export function BookDescRequestPage(props: Props) {
     }
   };
 
-  useEffectOnMount(() => {
-    // No store? fetch the reservations
-    if (!hasFetched) {
-      dispatch(actions.fetchUserReservations({}));
-    }
-    canUserBorrow();
-    console.log('[RES_WITH_BOOK_ISBN]: ', reservationWithISBN);
-  });
-
   const disabledRequestBtn = (
     <OverlayTrigger
       overlay={<Tooltip id="tooltip-disabled">{cantBorrowMsg}</Tooltip>}
     >
       <span className="d-inline-block">
         <Button variant="success" disabled style={{ pointerEvents: 'none' }}>
-          Borrow
+          <i className="bi bi-check-circle"></i> Borrowed
         </Button>
       </span>
     </OverlayTrigger>
-  );
-
-  const canRequestBtn = <Button variant="success">Borrow</Button>;
-
-  const requestBtn = canBorrow ? canRequestBtn : disabledRequestBtn;
-
-  const cancelRequestBtn = (
-    <Button variant="danger" className="ml-2">
-      Cancel
-    </Button>
   );
 
   const availableCopies = (
@@ -132,11 +123,62 @@ export function BookDescRequestPage(props: Props) {
     </Link>
   );
 
+  const successBorrowRequest = (
+    <Alert variant="success" onClose={() => setShowSuccess(false)} dismissible>
+      Request has been successfully issued. It will be shortly reviewed
+    </Alert>
+  );
+
+  const onBorrowBtnClick = () => {
+    dispatch(
+      actions.requestReservation({
+        isbn: selectedBook.isbn,
+        reservedAt: new Date().toISOString(),
+      }),
+    );
+  };
+
+  const canRequestBtn = (
+    <Button variant="success" onClick={onBorrowBtnClick}>
+      Borrow
+    </Button>
+  );
+
+  const requestBtn = canBorrow ? canRequestBtn : disabledRequestBtn;
+
+  useEffectOnMount(() => {
+    // No store? fetch the reservations
+    if (!hasFetched) {
+      dispatch(actions.fetchUserReservations({}));
+    }
+    canUserBorrow();
+  }, [reservationWithISBN, dispatch]);
+
+  useEffectOnMount(() => {
+    if (hasBorrowRequestSucceeded) {
+      setCanBorrow(false);
+      setCantBorrowMsg('Cannot borrow, reservation is pending');
+      setShowSuccess(true);
+    }
+  }, [hasBorrowRequestSucceeded]);
+
+  useEffectOnMount(() => {
+    if (hasBorrowRequestFailed) {
+      console.log('[FAILED]:');
+      // Handle error alert
+    }
+  }, [hasBorrowRequestFailed]);
+
   return (
     <Div className="d-flex flex-column min-vh-100">
       <Header navItems={[]} title={selectedBook.title} account={false} />
       <Container className="wrapper flex-grow-1" fluid>
-        <Row className="w-100 mt-5 justify-content-md-center">
+        <Row className="justify-content-md-center mt-2">
+          <Col className="my-auto" md="auto">
+            {!!showSuccess && successBorrowRequest}
+          </Col>
+        </Row>
+        <Row className="w-100 mt-3 justify-content-md-center">
           <Col md="auto">
             <Image
               height={346}
@@ -159,10 +201,7 @@ export function BookDescRequestPage(props: Props) {
               {selectedBook.authors[selectedBook.authors.length - 1].fullName}
             </div>
             {availableCopies}
-            <div className="mt-4">
-              {isSuccess ? requestBtn : loginBtn}
-              {!!canBorrow && cancelRequestBtn}
-            </div>
+            <div className="mt-4">{isSuccess ? requestBtn : loginBtn}</div>
             <Tabs
               className="mt-3"
               defaultActiveKey="description"

@@ -11,6 +11,9 @@ export const initialState: MemberReservationsState = {
   message: '',
   reservations: [],
   hasFetched: false,
+  isBorrowRequestFailed: false,
+  isBorrowRequestSuccess: false,
+  borrowRequestFailureMessage: '',
 };
 
 const slice = createSlice({
@@ -42,6 +45,19 @@ const slice = createSlice({
         ...state,
         reservations: [...action.payload],
       };
+    },
+    requestReservation(
+      state,
+      action: PayloadAction<{ isbn: string; reservedAt: string }>,
+    ) {},
+    requestReservationSuccess(state) {
+      state.isBorrowRequestFailed = false;
+      state.isBorrowRequestSuccess = true;
+    },
+    requestReservationFailed(state, action: PayloadAction<string>) {
+      state.isBorrowRequestSuccess = false;
+      state.isBorrowRequestFailed = true;
+      state.borrowRequestFailureMessage = action.payload;
     },
   },
 });

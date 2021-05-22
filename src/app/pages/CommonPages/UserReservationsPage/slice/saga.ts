@@ -1,4 +1,5 @@
 import { RESERVATION_ENDPOINTS } from 'app/configs/endpoints';
+import { AxiosRequestConfig } from 'axios';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import request from 'utils/request';
 import { memberReservationsActions as actions } from '.';
@@ -18,6 +19,23 @@ function* getUserReservations() {
   }
 }
 
+function* sendBorrowRequest(requestDetails) {
+  try {
+    const options: AxiosRequestConfig = {
+      method: 'POST',
+      data: {
+        isbn: requestDetails.payload.isbn,
+        reservedAt: requestDetails.payload.reservedAt,
+      },
+    };
+    yield call(request, RESERVATION_ENDPOINTS.createReservation, options);
+    yield put(actions.requestReservationSuccess());
+  } catch (error) {
+    yield put(actions.requestReservationFailed(error.message));
+    console.log('[CREATE_RESERVATION_ERROR]', error.message);
+  }
+}
+
 function* setUserReservations(action) {
   yield put(actions.setReservations(action.payload));
 }
@@ -27,5 +45,6 @@ export function* memberReservationsSaga() {
   yield all([
     takeLatest(actions.fetchUserReservations, getUserReservations),
     takeLatest(actions.setReservations.type, setUserReservations),
+    takeLatest(actions.requestReservation.type, sendBorrowRequest),
   ]);
 }

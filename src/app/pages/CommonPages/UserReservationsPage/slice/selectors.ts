@@ -35,3 +35,13 @@ export const selectReservations = createSelector(
   [selectSlice],
   state => state.reservations,
 );
+
+export const selectBookRequestSucceeded = createSelector(
+  [selectSlice],
+  state => state.isBorrowRequestSuccess,
+);
+
+export const selectBookRequestFailed = createSelector(
+  [selectSlice],
+  state => state.isBorrowRequestFailed,
+);

@@ -15,4 +15,8 @@ export interface MemberReservationsState {
   hasFetched: boolean;
   message: string;
   reservations: Reservation[];
+  // For sending borrow request
+  isBorrowRequestFailed: boolean;
+  isBorrowRequestSuccess: boolean;
+  borrowRequestFailureMessage: string;
 }
