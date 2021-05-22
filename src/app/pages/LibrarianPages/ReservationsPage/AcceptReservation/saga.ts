@@ -14,7 +14,7 @@ export function* acceptReservationSaga(action) {
     };
     const acceptedReservation = yield call(
       request,
-      `${RESERVATION_ENDPOINTS.acceptReservation}/${param.id}`,
+      `${RESERVATION_ENDPOINTS.acceptReservation}/${param.id}/accept`,
       options,
     );
     yield put(
