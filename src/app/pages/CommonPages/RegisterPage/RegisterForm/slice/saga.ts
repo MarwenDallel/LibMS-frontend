@@ -1,4 +1,4 @@
-import { AUTH_ENDPOINTS } from 'app/configs/endpoints';
+import { USER_ENDPOINTS } from 'app/configs/endpoints';
 import { AxiosRequestConfig } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import request from 'utils/request';
@@ -19,7 +19,7 @@ export function* registerUserSaga(action) {
         password: action.payload.password,
       },
     };
-    yield call(request, AUTH_ENDPOINTS.register, options);
+    yield call(request, USER_ENDPOINTS.createUser, options);
     yield put(
       useRegistrationActions.registerSuccess({
         email: action.payload.email,

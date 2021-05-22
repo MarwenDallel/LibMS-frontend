@@ -25,7 +25,7 @@ export function* addBookSaga(action) {
       method: 'POST',
       data: formData,
     };
-    yield call(request, BOOK_ENDPOINTS.addBook, options);
+    yield call(request, BOOK_ENDPOINTS.createBook, options);
     yield put(
       addBookActions.addBookSuccess({
         ...book,
