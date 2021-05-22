@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
+import { Role } from './configs/user-roles';
 import { AuthenticatedRoute, UnauthenticatedRoute } from './guards/Routes';
 import { AuthPage } from './pages/CommonPages/AuthPage/Loadable';
 import { HomePage } from './pages/CommonPages/HomePage/Loadable';
@@ -21,7 +22,6 @@ import { RegisterPage } from './pages/CommonPages/RegisterPage/Loadable';
 import { UserProfilePage } from './pages/CommonPages/UserProfilePage/Loadable';
 import { AddBookPage } from './pages/LibrarianPages/AddBookPage/Loadable';
 import { DashboardPage } from './pages/LibrarianPages/DashboardPage/Loadable';
-import { ReservationsPage } from './pages/LibrarianPages/ReservationsPage';
 import { BooksPage } from './pages/MemberPages/BooksPage/Loadable';
 
 export function App() {
@@ -52,15 +52,34 @@ export function App() {
         <UnauthenticatedRoute exact path="/login" component={LoginPage} />
         <UnauthenticatedRoute exact path="/register" component={RegisterPage} />
 
-        <AuthenticatedRoute exact path="/logout" component={LogoutPage} />
-        <AuthenticatedRoute exact path="/user" component={UserProfilePage} />
-        <AuthenticatedRoute exact path="/books" component={BooksPage} />
-        <AuthenticatedRoute exact path="/add-book" component={AddBookPage} />
-        <AuthenticatedRoute path="/dashboard" component={DashboardPage} />
         <AuthenticatedRoute
           exact
-          path="/reservations"
-          component={ReservationsPage}
+          path="/logout"
+          component={LogoutPage}
+          roles={[Role.Librarian, Role.Member]}
+        />
+        <AuthenticatedRoute
+          exact
+          path="/user"
+          component={UserProfilePage}
+          roles={[Role.Librarian, Role.Member]}
+        />
+        <AuthenticatedRoute
+          exact
+          path="/books"
+          component={BooksPage}
+          roles={[Role.Librarian, Role.Member]}
+        />
+        <AuthenticatedRoute
+          exact
+          path="/add-book"
+          component={AddBookPage}
+          roles={[Role.Librarian]}
+        />
+        <AuthenticatedRoute
+          path="/dashboard"
+          component={DashboardPage}
+          roles={[Role.Librarian]}
         />
         <Route component={NotFoundPage} />
       </Switch>

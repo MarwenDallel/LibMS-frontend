@@ -5,6 +5,7 @@ export interface User {
   firstName: string;
   lastName: string;
   universityID: string;
+  role: string;
 }
 
 export interface UserProfileState extends User {

@@ -34,7 +34,7 @@ export function UserProfilePage(props: Props) {
   };
 
   useEffectOnMount(() => {
-    dispatch(actions.requestUserProfile({}));
+    dispatch(actions.requestUserProfile());
   });
 
   return (

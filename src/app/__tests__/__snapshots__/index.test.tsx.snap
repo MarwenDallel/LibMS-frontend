@@ -53,30 +53,53 @@ exports[`<App /> should render and match the snapshot 1`] = `
       component={[Function]}
       exact={true}
       path="/logout"
+      roles={
+        Array [
+          "librarian",
+          "member",
+        ]
+      }
     />
     <AuthenticatedRoute
       component={[Function]}
       exact={true}
       path="/user"
+      roles={
+        Array [
+          "librarian",
+          "member",
+        ]
+      }
     />
     <AuthenticatedRoute
       component={[Function]}
       exact={true}
       path="/books"
+      roles={
+        Array [
+          "librarian",
+          "member",
+        ]
+      }
     />
     <AuthenticatedRoute
       component={[Function]}
       exact={true}
       path="/add-book"
+      roles={
+        Array [
+          "librarian",
+        ]
+      }
     />
     <AuthenticatedRoute
       component={[Function]}
       path="/dashboard"
-    />
-    <AuthenticatedRoute
-      component={[Function]}
-      exact={true}
-      path="/reservations"
+      roles={
+        Array [
+          "librarian",
+        ]
+      }
     />
     <Route
       component={[Function]}

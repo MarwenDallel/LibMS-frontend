@@ -10,6 +10,7 @@ export const initialState: UserProfileState = {
   firstName: '',
   lastName: '',
   universityID: '',
+  role: '',
   isFetching: false,
   isSuccess: false,
   isError: false,
@@ -20,7 +21,7 @@ const slice = createSlice({
   name: 'userProfile',
   initialState,
   reducers: {
-    requestUserProfile(state, action: PayloadAction<any>) {
+    requestUserProfile(state) {
       state.isFetching = true;
     },
     fetchProfileSuccess(state, action: PayloadAction<User>) {
@@ -30,6 +31,7 @@ const slice = createSlice({
       state.email = action.payload.email;
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
+      state.role = action.payload.role;
     },
     fetchProfileFailed(state, action: PayloadAction<{ message: string }>) {
       state.isFetching = false;
