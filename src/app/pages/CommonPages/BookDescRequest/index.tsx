@@ -100,7 +100,7 @@ export function BookDescRequestPage(props: Props) {
     >
       <span className="d-inline-block">
         <Button variant="success" disabled style={{ pointerEvents: 'none' }}>
-          <i className="bi bi-check-circle"></i> Borrowed
+          Borrowed <i className="bi bi-check-circle"></i>
         </Button>
       </span>
     </OverlayTrigger>
@@ -134,6 +134,7 @@ export function BookDescRequestPage(props: Props) {
       actions.requestReservation({
         isbn: selectedBook.isbn,
         reservedAt: new Date().toISOString(),
+        book: selectedBook,
       }),
     );
   };
@@ -159,8 +160,11 @@ export function BookDescRequestPage(props: Props) {
       setCanBorrow(false);
       setCantBorrowMsg('Cannot borrow, reservation is pending');
       setShowSuccess(true);
+      // "turn off" hasBorrowRequestSucceeded to avoid displaying the success alert again
+      dispatch(actions.setReservationSuccess(false));
+      console.log('[RESERVERATION_DISPATCHED]');
     }
-  }, [hasBorrowRequestSucceeded]);
+  }, [hasBorrowRequestSucceeded, dispatch]);
 
   useEffectOnMount(() => {
     if (hasBorrowRequestFailed) {

@@ -28,8 +28,21 @@ function* sendBorrowRequest(requestDetails) {
         reservedAt: requestDetails.payload.reservedAt,
       },
     };
-    yield call(request, RESERVATION_ENDPOINTS.createReservation, options);
+    const { id } = yield call(
+      request,
+      RESERVATION_ENDPOINTS.createReservation,
+      options,
+    );
+
     yield put(actions.requestReservationSuccess());
+    yield put(
+      actions.addReservation({
+        id,
+        createdAt: requestDetails.payload.reservedAt,
+        book: requestDetails.payload.book,
+        reservationStatus: 'pending',
+      }),
+    );
   } catch (error) {
     yield put(actions.requestReservationFailed(error.message));
     console.log('[CREATE_RESERVATION_ERROR]', error.message);

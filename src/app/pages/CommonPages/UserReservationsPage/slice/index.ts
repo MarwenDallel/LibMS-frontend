@@ -1,4 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
+import { Book } from 'app/pages/LibrarianPages/AddBookPage/AddBookForm/slice/types';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { memberReservationsSaga } from './saga';
@@ -48,7 +49,7 @@ const slice = createSlice({
     },
     requestReservation(
       state,
-      action: PayloadAction<{ isbn: string; reservedAt: string }>,
+      action: PayloadAction<{ isbn: string; reservedAt: string; book: Book }>,
     ) {},
     requestReservationSuccess(state) {
       state.isBorrowRequestFailed = false;
@@ -58,6 +59,12 @@ const slice = createSlice({
       state.isBorrowRequestSuccess = false;
       state.isBorrowRequestFailed = true;
       state.borrowRequestFailureMessage = action.payload;
+    },
+    setReservationSuccess(state, action: PayloadAction<boolean>) {
+      state.isBorrowRequestSuccess = action.payload;
+    },
+    addReservation(state, action: PayloadAction<Reservation>) {
+      state.reservations.push(action.payload);
     },
   },
 });
