@@ -28,11 +28,11 @@ import { useMemberReservationsSlice } from '../UserReservationsPage/slice';
 import {
   selectBookRequestFailed,
   selectBookRequestSucceeded,
+  selectCancelRequestFailed,
+  selectCancelRequestSucceeded,
   selectHasFetched,
   selectIsSuccess,
   selectReservationByBookId,
-  selectCancelRequestSucceeded,
-  selectCancelRequestFailed,
 } from '../UserReservationsPage/slice/selectors';
 
 interface Props {}
@@ -193,7 +193,9 @@ export function BookDescRequestPage(props: Props) {
 
   useEffectOnMount(() => {
     // No store? fetch the reservations
-    dispatch(actions.fetchUserReservations({}));
+    if (!hasFetched) {
+      dispatch(actions.fetchUserReservations({}));
+    }
     canUserBorrow();
   }, [reservationWithISBN, dispatch]);
 
@@ -214,9 +216,9 @@ export function BookDescRequestPage(props: Props) {
       setCanCancel(false);
       setCantCancelMsg('Reservation canceled');
       setCanBorrow(true);
-      console.log('can borrow' + canBorrow);
+      dispatch(actions.setCancelReservationSuccess(false));
     }
-  }, []);
+  }, [hasCancelledRequestSucceeded, dispatch]);
 
   useEffectOnMount(() => {
     if (hasBorrowRequestFailed) {

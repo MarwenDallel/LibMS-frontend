@@ -80,6 +80,15 @@ const slice = createSlice({
       state.isCancelledRequestFailed = true;
       state.cancelRequestFailureMessage = action.payload;
     },
+    removeReservationFromStore(state, action: PayloadAction<string>) {
+      const reservations = state.reservations.filter(
+        r => r.id !== action.payload,
+      );
+      state.reservations = reservations;
+    },
+    setCancelReservationSuccess(state, action: PayloadAction<boolean>) {
+      state.isCancelledRequestSuccess = action.payload;
+    },
   },
 });
 

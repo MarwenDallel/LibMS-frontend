@@ -63,6 +63,7 @@ function* cancelReservation(requestDetails) {
       options,
     );
     yield put(actions.cancelReservationSuccess());
+    yield put(actions.removeReservationFromStore(requestDetails.payload.id));
   } catch (error) {
     yield put(actions.cancelReservationFailed(error.message));
     console.log('[CANCEL_RESERVATION_ERROR]', error.message);
