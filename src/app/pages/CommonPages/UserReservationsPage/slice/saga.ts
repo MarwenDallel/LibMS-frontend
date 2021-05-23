@@ -49,6 +49,26 @@ function* sendBorrowRequest(requestDetails) {
   }
 }
 
+function* cancelReservation(requestDetails) {
+  try {
+    const param = {
+      id: requestDetails.payload.id,
+    };
+    const options: AxiosRequestConfig = {
+      method: 'PATCH',
+    };
+    yield call(
+      request,
+      `${RESERVATION_ENDPOINTS.cancelReservation}/${param.id}/cancel`,
+      options,
+    );
+    yield put(actions.cancelReservationSuccess());
+  } catch (error) {
+    yield put(actions.cancelReservationFailed(error.message));
+    console.log('[CANCEL_RESERVATION_ERROR]', error.message);
+  }
+}
+
 function* setUserReservations(action) {
   yield put(actions.setReservations(action.payload));
 }
@@ -59,5 +79,6 @@ export function* memberReservationsSaga() {
     takeLatest(actions.fetchUserReservations, getUserReservations),
     takeLatest(actions.setReservations.type, setUserReservations),
     takeLatest(actions.requestReservation.type, sendBorrowRequest),
+    takeLatest(actions.cancelReservation.type, cancelReservation),
   ]);
 }

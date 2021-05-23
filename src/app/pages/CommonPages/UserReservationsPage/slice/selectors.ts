@@ -45,3 +45,13 @@ export const selectBookRequestFailed = createSelector(
   [selectSlice],
   state => state.isBorrowRequestFailed,
 );
+
+export const selectCancelRequestSucceeded = createSelector(
+  [selectSlice],
+  state => state.isCancelledRequestSuccess,
+);
+
+export const selectCancelRequestFailed = createSelector(
+  [selectSlice],
+  state => state.isCancelledRequestFailed,
+);

@@ -19,4 +19,8 @@ export interface MemberReservationsState {
   isBorrowRequestFailed: boolean;
   isBorrowRequestSuccess: boolean;
   borrowRequestFailureMessage: string;
+  //For cancelling reservation
+  isCancelledRequestSuccess: boolean;
+  isCancelledRequestFailed: boolean;
+  cancelRequestFailureMessage: string;
 }

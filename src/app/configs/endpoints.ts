@@ -29,6 +29,7 @@ export const RESERVATION_ENDPOINTS = {
   acceptReservation: RESERVATION_PREFIX,
   userReservations: `${RESERVATION_PREFIX}/@me`,
   createReservation: `${RESERVATION_PREFIX}/`,
+  cancelReservation: RESERVATION_PREFIX,
 };
 
 export const ASSETS_ENDPOINTS = {

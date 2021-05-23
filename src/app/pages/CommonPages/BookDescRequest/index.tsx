@@ -31,6 +31,8 @@ import {
   selectHasFetched,
   selectIsSuccess,
   selectReservationByBookId,
+  selectCancelRequestSucceeded,
+  selectCancelRequestFailed,
 } from '../UserReservationsPage/slice/selectors';
 
 interface Props {}
@@ -54,6 +56,7 @@ export function BookDescRequestPage(props: Props) {
   const nbrOfCopies: number = 30;
 
   // I'm using hasFetched in case the store is already setup, to avoid duplicate requests
+  // eslint-disable-next-line
   const hasFetched = useSelector(selectHasFetched);
   const isSuccess = useSelector(selectIsSuccess);
   const reservationWithISBN = useSelector(selectReservationByBookId(id));
@@ -62,9 +65,19 @@ export function BookDescRequestPage(props: Props) {
   const [cantBorrowMsg, setCantBorrowMsg] = React.useState('');
   const [showSuccess, setShowSuccess] = React.useState(false);
 
+  const [canCancel, setCanCancel] = React.useState(false);
+  const [cantCancelMsg, setCantCancelMsg] = React.useState(
+    'Cannot cancel, book not reserved',
+  );
+
   // Listening for borrow request status: Succeeded or Failed
   const hasBorrowRequestSucceeded = useSelector(selectBookRequestSucceeded);
   const hasBorrowRequestFailed = useSelector(selectBookRequestFailed);
+
+  const hasCancelledRequestSucceeded = useSelector(
+    selectCancelRequestSucceeded,
+  );
+  const hasCancelledRequestFailed = useSelector(selectCancelRequestFailed);
 
   const useEffectOnMount = (
     effect: React.EffectCallback,
@@ -82,6 +95,7 @@ export function BookDescRequestPage(props: Props) {
     ) {
       setCanBorrow(false);
       setCantBorrowMsg('Cannot borrow, reservation is pending');
+      setCanCancel(true);
     } else if (
       reservationWithISBN.filter(r => r.reservationStatus === 'active').length >
       0
@@ -101,6 +115,18 @@ export function BookDescRequestPage(props: Props) {
       <span className="d-inline-block">
         <Button variant="success" disabled style={{ pointerEvents: 'none' }}>
           Borrowed <i className="bi bi-check-circle"></i>
+        </Button>
+      </span>
+    </OverlayTrigger>
+  );
+
+  const disabledCancelBtn = (
+    <OverlayTrigger
+      overlay={<Tooltip id="tooltip-disabled">{cantCancelMsg}</Tooltip>}
+    >
+      <span className="d-inline-block">
+        <Button variant="danger" disabled style={{ pointerEvents: 'none' }}>
+          Cancel Reservation
         </Button>
       </span>
     </OverlayTrigger>
@@ -139,19 +165,35 @@ export function BookDescRequestPage(props: Props) {
     );
   };
 
+  const onCancelBtnClick = () => {
+    dispatch(
+      actions.cancelReservation({
+        id: reservationWithISBN.filter(
+          r => r.reservationStatus === 'pending',
+        )[0].id,
+      }),
+    );
+  };
+
   const canRequestBtn = (
     <Button variant="success" onClick={onBorrowBtnClick}>
       Borrow
     </Button>
   );
 
+  const canCancelBtn = (
+    <Button variant="danger" onClick={onCancelBtnClick}>
+      Cancel
+    </Button>
+  );
+
   const requestBtn = canBorrow ? canRequestBtn : disabledRequestBtn;
+
+  const cancelBtn = canCancel ? canCancelBtn : disabledCancelBtn;
 
   useEffectOnMount(() => {
     // No store? fetch the reservations
-    if (!hasFetched) {
-      dispatch(actions.fetchUserReservations({}));
-    }
+    dispatch(actions.fetchUserReservations({}));
     canUserBorrow();
   }, [reservationWithISBN, dispatch]);
 
@@ -163,15 +205,28 @@ export function BookDescRequestPage(props: Props) {
       // "turn off" hasBorrowRequestSucceeded to avoid displaying the success alert again
       dispatch(actions.setReservationSuccess(false));
       console.log('[RESERVERATION_DISPATCHED]');
+      setCanCancel(true);
     }
   }, [hasBorrowRequestSucceeded, dispatch]);
+
+  useEffectOnMount(() => {
+    if (hasCancelledRequestSucceeded) {
+      setCanCancel(false);
+      setCantCancelMsg('Reservation canceled');
+      setCanBorrow(true);
+      console.log('can borrow' + canBorrow);
+    }
+  }, []);
 
   useEffectOnMount(() => {
     if (hasBorrowRequestFailed) {
       console.log('[FAILED]:');
       // Handle error alert
     }
-  }, [hasBorrowRequestFailed]);
+    if (hasCancelledRequestFailed) {
+      console.log('[FAILED]:');
+    }
+  }, [hasBorrowRequestFailed, hasCancelledRequestFailed]);
 
   return (
     <Div className="d-flex flex-column min-vh-100">
@@ -206,6 +261,7 @@ export function BookDescRequestPage(props: Props) {
             </div>
             {availableCopies}
             <div className="mt-4">{isSuccess ? requestBtn : loginBtn}</div>
+            <div className="mt-4">{isSuccess ? cancelBtn : loginBtn}</div>
             <Tabs
               className="mt-3"
               defaultActiveKey="description"

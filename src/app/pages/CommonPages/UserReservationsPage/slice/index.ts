@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Book } from 'app/pages/LibrarianPages/AddBookPage/AddBookForm/slice/types';
+import { ReservationId } from 'app/pages/LibrarianPages/ReservationsPage/ReservationsList/slice/types';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { memberReservationsSaga } from './saga';
@@ -15,6 +16,9 @@ export const initialState: MemberReservationsState = {
   isBorrowRequestFailed: false,
   isBorrowRequestSuccess: false,
   borrowRequestFailureMessage: '',
+  isCancelledRequestSuccess: false,
+  isCancelledRequestFailed: false,
+  cancelRequestFailureMessage: '',
 };
 
 const slice = createSlice({
@@ -65,6 +69,16 @@ const slice = createSlice({
     },
     addReservation(state, action: PayloadAction<Reservation>) {
       state.reservations.push(action.payload);
+    },
+    cancelReservation(state, action: PayloadAction<ReservationId>) {},
+    cancelReservationSuccess(state) {
+      state.isCancelledRequestFailed = false;
+      state.isCancelledRequestSuccess = true;
+    },
+    cancelReservationFailed(state, action: PayloadAction<string>) {
+      state.isCancelledRequestSuccess = false;
+      state.isCancelledRequestFailed = true;
+      state.cancelRequestFailureMessage = action.payload;
     },
   },
 });

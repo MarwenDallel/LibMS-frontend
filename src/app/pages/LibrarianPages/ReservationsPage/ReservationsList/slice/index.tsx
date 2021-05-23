@@ -2,7 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { fetchReservationsRootState } from './saga';
-import { ReservationId, ReservationsState } from './types';
+import { ReservationsState } from './types';
 
 export const initialState: ReservationsState = {
   reservations: [],
@@ -34,7 +34,7 @@ const slice = createSlice({
       state.isFetching = false;
       return state;
     },
-    requestAcceptReservation(state, action: PayloadAction<ReservationId>) {
+    requestAcceptReservation(state, action: PayloadAction<{ id: string }>) {
       state.isFetching = true;
     },
     acceptReservationSuccess(
