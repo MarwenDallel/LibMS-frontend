@@ -64,6 +64,7 @@ export function BookDescRequestPage(props: Props) {
   const [canBorrow, setCanBorrow] = React.useState(true);
   const [cantBorrowMsg, setCantBorrowMsg] = React.useState('');
   const [showSuccess, setShowSuccess] = React.useState(false);
+  const [showCancelSuccess, setCancelShowSuccess] = React.useState(false);
 
   const [canCancel, setCanCancel] = React.useState(false);
   const [cantCancelMsg, setCantCancelMsg] = React.useState(
@@ -155,6 +156,16 @@ export function BookDescRequestPage(props: Props) {
     </Alert>
   );
 
+  const successCancelRequest = (
+    <Alert
+      variant="success"
+      onClose={() => setCancelShowSuccess(false)}
+      dismissible
+    >
+      Reservation Cancelled
+    </Alert>
+  );
+
   const onBorrowBtnClick = () => {
     dispatch(
       actions.requestReservation({
@@ -203,6 +214,7 @@ export function BookDescRequestPage(props: Props) {
     if (hasBorrowRequestSucceeded) {
       setCanBorrow(false);
       setCantBorrowMsg('Cannot borrow, reservation is pending');
+      setCancelShowSuccess(false);
       setShowSuccess(true);
       // "turn off" hasBorrowRequestSucceeded to avoid displaying the success alert again
       dispatch(actions.setReservationSuccess(false));
@@ -214,6 +226,8 @@ export function BookDescRequestPage(props: Props) {
   useEffectOnMount(() => {
     if (hasCancelledRequestSucceeded) {
       setCanCancel(false);
+      setShowSuccess(false);
+      setCancelShowSuccess(true);
       setCantCancelMsg('Reservation canceled');
       setCanBorrow(true);
       dispatch(actions.setCancelReservationSuccess(false));
@@ -236,7 +250,8 @@ export function BookDescRequestPage(props: Props) {
       <Container className="wrapper flex-grow-1" fluid>
         <Row className="justify-content-md-center mt-2">
           <Col className="my-auto" md="auto">
-            {!!showSuccess && successBorrowRequest}
+            {(!!showSuccess && successBorrowRequest) ||
+              (!!showCancelSuccess && successCancelRequest)}
           </Col>
         </Row>
         <Row className="w-100 mt-3 justify-content-md-center">
