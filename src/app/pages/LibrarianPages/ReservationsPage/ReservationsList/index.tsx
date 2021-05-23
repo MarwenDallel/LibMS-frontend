@@ -20,7 +20,6 @@ export const ReservationsList = memo(() => {
   const { actions } = useFetchReservationsSlice();
   const dispatch = useDispatch();
   const reservationsSelected = useSelector(selectReservations);
-  console.log('Before: ', reservationsSelected);
   const useEffectOnMount = (effect: React.EffectCallback) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(effect, []);
@@ -29,14 +28,17 @@ export const ReservationsList = memo(() => {
     dispatch(actions.requestFetchReservations());
   });
 
-  const handleAcceptReservation = (id: ReservationId): void => {
-    dispatch(actions.requestAcceptReservation(id));
+  const handleAcceptReservation = (data: ReservationId): void => {
+    dispatch(actions.requestAcceptReservation(data));
+  };
+  const handleRejectReservation = (data: ReservationId): void => {
+    dispatch(actions.requestrejectReservation(data));
   };
 
   const statusToBadge = {
     pending: 'warning',
     active: 'success',
-    rejected: 'alert',
+    rejected: 'danger',
   };
   return (
     <Table className="w-100 mr-5 ml-5" striped bordered hover>
@@ -78,7 +80,13 @@ export const ReservationsList = memo(() => {
               <div className="d-flex flex-row">
                 <Col xs={6}>
                   <Button
-                    disabled={reservation.reservationStatus === 'active'}
+                    disabled={
+                      reservation.reservationStatus === 'active' ||
+                      reservation.reservationStatus === 'rejected' ||
+                      reservation.reservationStatus === 'overdue' ||
+                      reservation.reservationStatus === 'closed' ||
+                      reservation.reservationStatus === 'cancelled'
+                    }
                     onClick={() =>
                       handleAcceptReservation({ id: reservation.id })
                     }
@@ -88,7 +96,21 @@ export const ReservationsList = memo(() => {
                   </Button>
                 </Col>
                 <Col xs={6}>
-                  <Button className="btn-danger btn-sm">Deny</Button>
+                  <Button
+                    disabled={
+                      reservation.reservationStatus === 'rejected' ||
+                      reservation.reservationStatus === 'active' ||
+                      reservation.reservationStatus === 'overdue' ||
+                      reservation.reservationStatus === 'closed' ||
+                      reservation.reservationStatus === 'cancelled'
+                    }
+                    onClick={() =>
+                      handleRejectReservation({ id: reservation.id })
+                    }
+                    className="btn-danger w-100 btn-sm"
+                  >
+                    reject
+                  </Button>
                 </Col>
               </div>
             </td>

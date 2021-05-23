@@ -5,7 +5,8 @@ import {
   fetchReservationsActions as actions,
   fetchReservationsActions,
 } from '.';
-import { acceptReservationSaga } from '../../AcceptReservation/saga';
+import { acceptReservationSaga } from '../../components/AcceptReservation/saga';
+import { rejectReservationSaga } from '../../components/RejectReservation/saga';
 
 export function* fetchReservationsSaga(action) {
   try {
@@ -33,6 +34,10 @@ export function* fetchReservationsRootState() {
     yield takeLatest(
       actions.requestAcceptReservation.type,
       acceptReservationSaga,
+    ),
+    yield takeLatest(
+      actions.requestrejectReservation.type,
+      rejectReservationSaga,
     ),
   ]);
 }

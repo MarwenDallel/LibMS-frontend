@@ -25,3 +25,7 @@ export interface AcceptReservationResponse {
   returnDate: string;
   id: string;
 }
+
+export interface rejectReservationResponse {
+  id: string;
+}
