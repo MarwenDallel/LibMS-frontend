@@ -10,11 +10,14 @@ export const initialState: ReservationsState = {
   isError: false,
   isSuccess: false,
 };
-interface AcceptReservationResponse {
-  copiesNbr: number;
+
+interface ReservationResponse {
   reservationStatus: string;
-  returnDate: string;
   id: string;
+}
+interface AcceptReservationResponse extends ReservationResponse {
+  returnDate: string;
+  copiesNbr: number;
 }
 
 const slice = createSlice({
@@ -52,11 +55,36 @@ const slice = createSlice({
       state.isFetching = false;
       return state;
     },
+    requestrejectReservation(state, action: PayloadAction<any>) {
+      state.isFetching = true;
+    },
+    rejectReservationSuccess(
+      state,
+      action: PayloadAction<ReservationResponse>,
+    ) {
+      state.reservations
+        .filter(reservation => reservation.id === action.payload.id)
+        .map(rejectedReservation => {
+          rejectedReservation.reservationStatus =
+            action.payload.reservationStatus;
+          return null;
+        });
+      state.isSuccess = true;
+      state.isError = false;
+      state.isFetching = false;
+      return state;
+    },
+    rejectReservationFailed(state) {
+      state.isSuccess = false;
+      state.isError = true;
+      state.isFetching = false;
+    },
   },
 });
 
 export const { actions: fetchReservationsActions } = slice;
 export const { actions: acceptReservationActions } = slice;
+export const { actions: rejectReservationActions } = slice;
 
 export const useFetchReservationsSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });

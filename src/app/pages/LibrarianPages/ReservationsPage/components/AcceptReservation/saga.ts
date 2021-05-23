@@ -2,7 +2,7 @@ import { RESERVATION_ENDPOINTS } from 'app/configs/endpoints';
 import { AxiosRequestConfig } from 'axios';
 import { call, put } from 'redux-saga/effects';
 import request from 'utils/request';
-import { acceptReservationActions } from '../ReservationsList/slice/index';
+import { acceptReservationActions } from '../../ReservationsList/slice/index';
 
 export function* acceptReservationSaga(action) {
   try {
