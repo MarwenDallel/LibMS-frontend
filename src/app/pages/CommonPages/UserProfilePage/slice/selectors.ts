@@ -21,6 +21,10 @@ export const selectLastName = createSelector(
   userProfileState => userProfileState.lastName,
 );
 
+export const selectRole = createSelector(
+  [selectSlice],
+  userProfileState => userProfileState.role,
+);
 export const selectIsFetching = createSelector(
   [selectSlice],
   userProfileState => userProfileState.isFetching,

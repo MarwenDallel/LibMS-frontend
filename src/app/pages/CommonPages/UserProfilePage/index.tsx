@@ -5,6 +5,7 @@
  */
 import { Footer } from 'app/components/Footer';
 import { Header } from 'app/components/Header';
+import { Role } from 'app/configs/user-roles';
 import * as React from 'react';
 import { ButtonGroup, Container, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,7 +16,9 @@ import {
   selectFirstName,
   selectIsFetching,
   selectLastName,
+  selectRole,
 } from './slice/selectors';
+
 interface Props {}
 
 export function UserProfilePage(props: Props) {
@@ -23,7 +26,7 @@ export function UserProfilePage(props: Props) {
 
   const firstName = useSelector(selectFirstName);
   const lastName = useSelector(selectLastName);
-
+  const role = useSelector(selectRole);
   const isFetching = useSelector(selectIsFetching);
 
   const dispatch = useDispatch();
@@ -58,26 +61,30 @@ export function UserProfilePage(props: Props) {
             size="lg"
             vertical
           >
-            <Link
-              className="btn btn-warning w-100 btn-block"
-              role="button"
-              to="/dashboard/books"
-            >
-              Continue to Dashboard
-            </Link>
+            {role === Role.Librarian && (
+              <>
+                <Link
+                  className="btn btn-warning w-100 btn-block"
+                  role="button"
+                  to="/dashboard/books"
+                >
+                  Continue to Dashboard
+                </Link>
+                <Link
+                  className="btn btn-success w-100 btn-block"
+                  role="button"
+                  to="/add-book"
+                >
+                  Add a Book
+                </Link>
+              </>
+            )}
             <Link
               className="btn btn-primary w-100 btn-block"
               role="button"
               to="/books"
             >
               List of Books
-            </Link>
-            <Link
-              className="btn btn-success w-100 btn-block"
-              role="button"
-              to="/add-book"
-            >
-              Add a Book
             </Link>
           </ButtonGroup>
         </ButtonContainer>

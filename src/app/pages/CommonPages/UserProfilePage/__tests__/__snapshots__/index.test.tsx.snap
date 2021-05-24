@@ -93,25 +93,11 @@ exports[`<UserProfilePage  /> should match snapshot 1`] = `
         role="group"
       >
         <a
-          class="btn btn-warning w-100 btn-block"
-          href="/dashboard/books"
-          role="button"
-        >
-          Continue to Dashboard
-        </a>
-        <a
           class="btn btn-primary w-100 btn-block"
           href="/books"
           role="button"
         >
           List of Books
-        </a>
-        <a
-          class="btn btn-success w-100 btn-block"
-          href="/add-book"
-          role="button"
-        >
-          Add a Book
         </a>
       </div>
     </div>
