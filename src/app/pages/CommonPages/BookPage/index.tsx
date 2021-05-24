@@ -6,7 +6,7 @@
 import { Footer } from 'app/components/Footer';
 import { Header } from 'app/components/Header';
 import { ASSETS_ENDPOINTS } from 'app/configs/endpoints';
-import { selectMemberBooksById } from 'app/pages/MemberPages/BooksPage/slice/selectors';
+import { selectMemberBooksById } from 'app/pages/CommonPages/BooksPage/slice/selectors';
 import * as React from 'react';
 import { useEffect } from 'react';
 import {
@@ -37,7 +37,7 @@ import {
 
 interface Props {}
 
-export function BookDescRequestPage(props: Props) {
+export function BookPage(props: Props) {
   /**
    * 1) If user is logged (i.e. isSuccess is set to true from UserProfilePage, (I'm also fetching the reservations when the
    * user is redirected to their profile page, the idea is to load everything from that page) ) render borrow btn (conditionally

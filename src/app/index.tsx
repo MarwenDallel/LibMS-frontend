@@ -15,6 +15,8 @@ import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { Role } from './configs/user-roles';
 import { AuthenticatedRoute, UnauthenticatedRoute } from './guards/Routes';
 import { AuthPage } from './pages/CommonPages/AuthPage/Loadable';
+import { BookPage } from './pages/CommonPages/BookPage';
+import { BooksPage } from './pages/CommonPages/BooksPage/Loadable';
 import { HomePage } from './pages/CommonPages/HomePage/Loadable';
 import { LoginPage } from './pages/CommonPages/LoginPage/Loadable';
 import { LogoutPage } from './pages/CommonPages/LogoutPage/Loadable';
@@ -22,7 +24,6 @@ import { RegisterPage } from './pages/CommonPages/RegisterPage/Loadable';
 import { UserProfilePage } from './pages/CommonPages/UserProfilePage/Loadable';
 import { AddBookPage } from './pages/LibrarianPages/AddBookPage/Loadable';
 import { DashboardPage } from './pages/LibrarianPages/DashboardPage/Loadable';
-import { BooksPage } from './pages/MemberPages/BooksPage/Loadable';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -66,6 +67,11 @@ export function App() {
         />
         <AuthenticatedRoute
           exact
+          path="/books/:id"
+          component={BookPage}
+          roles={[Role.Librarian, Role.Member]}
+        />
+        <AuthenticatedRoute
           path="/books"
           component={BooksPage}
           roles={[Role.Librarian, Role.Member]}
