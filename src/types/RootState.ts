@@ -1,5 +1,6 @@
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
+import { MemberBookState } from 'app/pages/CommonPages/BookPage/slice/types';
 import { MemberBooksState } from 'app/pages/CommonPages/BooksPage/slice/types';
 import { LoginUserState } from 'app/pages/CommonPages/LoginPage/LoginForm/slice/types';
 import { LogoutUserState } from 'app/pages/CommonPages/LogoutPage/slice/types';
@@ -27,4 +28,5 @@ export interface RootState {
   reservations: ReservationsState;
   memberBooks: MemberBooksState;
   memberReservations: MemberReservationsState;
+  memberBook: MemberBookState;
 }
