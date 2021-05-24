@@ -66,10 +66,8 @@ export function BookPage(props: Props) {
   const [showSuccess, setShowSuccess] = React.useState(false);
   const [showCancelSuccess, setCancelShowSuccess] = React.useState(false);
 
-  const [canCancel, setCanCancel] = React.useState(false);
-  const [cantCancelMsg, setCantCancelMsg] = React.useState(
-    'Cannot cancel, book not reserved',
-  );
+  const [canCancel, setCanCancel] = React.useState(true);
+  const [cantCancelMsg, setCantCancelMsg] = React.useState('');
 
   // Listening for borrow request status: Succeeded or Failed
   const hasBorrowRequestSucceeded = useSelector(selectBookRequestSucceeded);
@@ -106,6 +104,24 @@ export function BookPage(props: Props) {
     } else if (nbrOfAvailableCopies === 0) {
       setCanBorrow(false);
       setCantBorrowMsg('Not enough quantity');
+    }
+  };
+
+  const canUserCancel = () => {
+    if (
+      reservationWithISBN.filter(r => r.reservationStatus === 'active').length >
+      0
+    ) {
+      setCanCancel(false);
+      setCantCancelMsg('Cannot cancel active request');
+    } else if (
+      reservationWithISBN.filter(r => r.reservationStatus === 'pending')
+        .length === 0
+    ) {
+      setCanCancel(false);
+      setCantCancelMsg('Book is not reserved');
+    } else {
+      setCanCancel(true);
     }
   };
 
@@ -208,6 +224,7 @@ export function BookPage(props: Props) {
       dispatch(actions.fetchUserReservations({}));
     }
     canUserBorrow();
+    canUserCancel();
   }, [reservationWithISBN, dispatch]);
 
   useEffectOnMount(() => {
