@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /**
  *
- * BookDescRequest
+ * BookPage
  *
  */
 import { Footer } from 'app/components/Footer';
