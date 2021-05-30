@@ -83,11 +83,7 @@ export function BookPage(props: Props) {
 
   return (
     <>
-      <Header
-        navItems={[]}
-        title={selectedBook?.title ? selectedBook.title : ''}
-        account={false}
-      />
+      <Header title={selectedBook?.title ? selectedBook.title : ''} />
       {selectedBook?.isSuccess && (
         <Container className="wrapper flex-grow-1" fluid>
           <Row className="justify-content-md-center mt-2">

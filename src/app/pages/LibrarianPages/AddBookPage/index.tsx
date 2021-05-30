@@ -6,7 +6,7 @@ import { AddBook } from './AddBookForm/index';
 export function AddBookPage() {
   return (
     <>
-      <Header title="Book Adding Form" navItems={[]} account={false} />
+      <Header title="Book Adding Form" />
       <Container className="text-left wrapper flex-grow-1 mb-4">
         <div
           className="d-block mt-5 mb-5 font-weight-light"

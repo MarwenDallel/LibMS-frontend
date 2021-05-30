@@ -42,7 +42,7 @@ export function UserProfilePage(props: Props) {
 
   return (
     <>
-      <Header title="My SMU-Library Account" navItems={[]} account={false} />
+      <Header title="My SMU-Library Account" />
       <Container className="text-center wrapper flex-grow-1 my-5">
         <div
           className="d-block font-weight-light mb-5"

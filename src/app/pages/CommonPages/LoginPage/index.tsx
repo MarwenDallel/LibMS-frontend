@@ -16,7 +16,7 @@ interface Props {}
 export function LoginPage(props: Props) {
   return (
     <>
-      <Header title="My SMU-Library Account" navItems={[]} account={false} />
+      <Header title="My SMU-Library Account" />
       <Container className="text-left wrapper flex-grow-1">
         <div
           className="d-block mt-5 mb-5 font-weight-light"

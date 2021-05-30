@@ -28,7 +28,7 @@ export function BooksPage(props: Props) {
 
   return (
     <>
-      <Header title="SMU-Library Books" navItems={[]} account={false} />
+      <Header title="SMU-Library Books" />
       <BooksMain role="main">
         <BooksJumbotron className="text-center">
           <BookSearch />

@@ -17,7 +17,7 @@ interface Props {}
 export function RegisterPage(props: Props) {
   return (
     <>
-      <Header title="My SMU-Library Account" navItems={[]} account={false} />
+      <Header title="My SMU-Library Account" />
       <Container className="text-left wrapper flex-grow-1">
         <RegisterDiv className="d-block mt-5 mb-5 font-weight-light">
           Register

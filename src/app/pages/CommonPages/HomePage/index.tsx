@@ -15,7 +15,7 @@ const items = [
 export function HomePage(props: Props) {
   return (
     <>
-      <Header navItems={items} account={false} />
+      <Header navItems={items} />
       <Container className="wrapper flex-grow-1" fluid>
         <Col md={6} className="h-25 text-center mx-auto mt-5">
           <Form className="mt-5">
