@@ -14,67 +14,68 @@ import React from 'react';
 import { Router as BrowserRouter, Switch } from 'react-router-dom';
 import { GuardedRoute, GuardProvider } from 'react-router-guards';
 import { LoadingSpinner } from '../components/LoadingPage/index';
+import { requireRole } from './guards';
 import history from './history';
-import { AuthenticatedRoute, UnauthenticatedRoute } from './Routes';
 
 interface Props {
   children(content: React.ReactElement): React.ReactElement;
 }
 
-const Router: React.FunctionComponent<Props> = ({ children }) => (
-  <BrowserRouter history={history}>
-    <GuardProvider loading={LoadingSpinner} error={NotFoundPage}>
-      {children(
-        <Switch>
-          <UnauthenticatedRoute exact path="/" component={HomePage} />
-          <UnauthenticatedRoute exact path="/auth" component={AuthPage} />
-          <UnauthenticatedRoute exact path="/login" component={LoginPage} />
-          <UnauthenticatedRoute
-            exact
-            path="/register"
-            component={RegisterPage}
-          />
+const Router: React.FunctionComponent<Props> = ({ children }) => {
+  return (
+    <BrowserRouter history={history}>
+      <GuardProvider
+        guards={[requireRole]}
+        loading={LoadingSpinner}
+        error={NotFoundPage}
+      >
+        {children(
+          <Switch>
+            <GuardedRoute exact path="/" component={HomePage} />
+            <GuardedRoute exact path="/auth" component={AuthPage} />
+            <GuardedRoute exact path="/login" component={LoginPage} />
+            <GuardedRoute exact path="/register" component={RegisterPage} />
 
-          <AuthenticatedRoute
-            exact
-            path="/logout"
-            component={LogoutPage}
-            roles={[Role.Librarian, Role.Member]}
-          />
-          <AuthenticatedRoute
-            exact
-            path="/user"
-            component={UserProfilePage}
-            roles={[Role.Librarian, Role.Member]}
-          />
-          <AuthenticatedRoute
-            exact
-            path="/books/:id"
-            component={BookPage}
-            roles={[Role.Librarian, Role.Member]}
-          />
-          <AuthenticatedRoute
-            path="/books"
-            component={BooksPage}
-            roles={[Role.Librarian, Role.Member]}
-          />
-          <AuthenticatedRoute
-            exact
-            path="/add-book"
-            component={AddBookPage}
-            roles={[Role.Librarian]}
-          />
-          <AuthenticatedRoute
-            path="/dashboard"
-            component={DashboardPage}
-            roles={[Role.Librarian]}
-          />
-
-          <GuardedRoute path="*" component={NotFoundPage} />
-        </Switch>,
-      )}
-    </GuardProvider>
-  </BrowserRouter>
-);
+            <GuardedRoute
+              exact
+              path="/logout"
+              component={LogoutPage}
+              meta={{ roles: [Role.Librarian, Role.Member] }}
+            />
+            <GuardedRoute
+              exact
+              path="/user"
+              component={UserProfilePage}
+              meta={{ roles: [Role.Librarian, Role.Member] }}
+            />
+            <GuardedRoute
+              exact
+              path="/books/:id"
+              component={BookPage}
+              meta={{ roles: [Role.Librarian, Role.Member] }}
+            />
+            <GuardedRoute
+              path="/books"
+              component={BooksPage}
+              meta={{ roles: [Role.Librarian, Role.Member] }}
+            />
+            <GuardedRoute
+              exact
+              path="/add-book"
+              component={AddBookPage}
+              meta={{ roles: [Role.Librarian] }}
+            />
+            <GuardedRoute
+              path="/dashboard"
+              component={DashboardPage}
+              meta={{ roles: [Role.Librarian] }}
+            />
+            <GuardedRoute path="*" component={NotFoundPage} />
+          </Switch>,
+        )}
+      </GuardProvider>
+    </BrowserRouter>
+  );
+};
 
 export default Router;

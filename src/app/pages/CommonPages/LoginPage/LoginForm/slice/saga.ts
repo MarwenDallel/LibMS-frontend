@@ -25,7 +25,6 @@ function* loginUserSaga(action) {
       }),
     );
   } catch (error) {
-    console.log(error);
     yield put(
       actions.loginFailed({
         message: 'Login Failed: Please check your credentials',

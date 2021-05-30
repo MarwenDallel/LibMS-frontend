@@ -1,1 +1,1 @@
-export { default as waitOneSecond } from './waitOneSecond';
+export { default as requireRole } from './requireRole';
