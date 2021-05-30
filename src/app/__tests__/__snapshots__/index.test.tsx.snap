@@ -1,16 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<App /> should render and match the snapshot 1`] = `
-<BrowserRouter>
+<React.Fragment>
   <Helmet
     defaultTitle="SMU Library"
     defer={true}
     encodeSpecialCharacters={true}
-    htmlAttributes={
-      Object {
-        "lang": undefined,
-      }
-    }
     titleTemplate="%s - SMU Library"
   >
     <meta
@@ -28,93 +23,8 @@ exports[`<App /> should render and match the snapshot 1`] = `
       rel="stylesheet"
     />
   </Helmet>
-  <Switch>
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/"
-    />
-    <UnauthenticatedRoute
-      component={[Function]}
-      exact={true}
-      path="/auth"
-    />
-    <UnauthenticatedRoute
-      component={[Function]}
-      exact={true}
-      path="/login"
-    />
-    <UnauthenticatedRoute
-      component={[Function]}
-      exact={true}
-      path="/register"
-    />
-    <AuthenticatedRoute
-      component={[Function]}
-      exact={true}
-      path="/logout"
-      roles={
-        Array [
-          "librarian",
-          "member",
-        ]
-      }
-    />
-    <AuthenticatedRoute
-      component={[Function]}
-      exact={true}
-      path="/user"
-      roles={
-        Array [
-          "librarian",
-          "member",
-        ]
-      }
-    />
-    <AuthenticatedRoute
-      component={[Function]}
-      exact={true}
-      path="/books/:id"
-      roles={
-        Array [
-          "librarian",
-          "member",
-        ]
-      }
-    />
-    <AuthenticatedRoute
-      component={[Function]}
-      path="/books"
-      roles={
-        Array [
-          "librarian",
-          "member",
-        ]
-      }
-    />
-    <AuthenticatedRoute
-      component={[Function]}
-      exact={true}
-      path="/add-book"
-      roles={
-        Array [
-          "librarian",
-        ]
-      }
-    />
-    <AuthenticatedRoute
-      component={[Function]}
-      path="/dashboard"
-      roles={
-        Array [
-          "librarian",
-        ]
-      }
-    />
-    <Route
-      component={[Function]}
-    />
-  </Switch>
-  <Memo(l) />
-</BrowserRouter>
+  <Router>
+    [Function]
+  </Router>
+</React.Fragment>
 `;

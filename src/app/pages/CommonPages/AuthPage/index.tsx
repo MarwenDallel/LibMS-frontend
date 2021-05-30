@@ -9,14 +9,13 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components/macro';
 import { Header } from '../../../components/Header';
 
 interface Props {}
 
 export const AuthPage = memo((props: Props) => {
   return (
-    <Div className="d-flex flex-column min-vh-100">
+    <>
       <Header title="My SMU-Library Account" navItems={[]} account={false} />
       <Container className="text-left wrapper flex-grow-1">
         <div
@@ -80,10 +79,6 @@ export const AuthPage = memo((props: Props) => {
         </div>
       </Container>
       <Footer />
-    </Div>
+    </>
   );
 });
-
-const Div = styled.div`
-  background-color: #f6f8fb;
-`;

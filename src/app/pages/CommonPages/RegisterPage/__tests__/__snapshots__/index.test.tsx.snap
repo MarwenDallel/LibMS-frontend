@@ -1,339 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<RegisterPage  /> should match snapshot 1`] = `
-.c5 {
-  background-color: #203549;
-}
-
-.c2 {
+.c1 {
   background-color: #007ea4;
 }
 
-.c1 {
+.c0 {
   background-color: #203549;
 }
 
-.c0 {
-  background-color: #f6f8fb;
-}
-
-.c3 {
-  font-size: 2em;
-}
-
-.c4 {
-  font-size: 1.232em;
-}
-
 <div
-  class="c0 d-flex flex-column min-vh-100"
+  class="Header__Div-sc-72bdxd-0"
 >
-  <div
-    class="Header__Div-sc-72bdxd-0"
-  >
-    <nav
-      class="c1 navbar navbar-expand navbar-light"
-    >
-      <div
-        class="container"
-      >
-        <a
-          href="/"
-        >
-          <img
-            alt=""
-            height="122"
-            src="SMU-LOGO.png"
-            width="263"
-          />
-        </a>
-      </div>
-    </nav>
-    <nav
-      class="c2 navbar navbar-expand-md navbar-dark navbar navbar-expand-lg navbar-light"
-    >
-      <button
-        aria-controls="responsive-navbar-nav"
-        aria-label="Toggle navigation"
-        class="navbar-toggler collapsed"
-        type="button"
-      >
-        <span
-          class="navbar-toggler-icon"
-        />
-      </button>
-      <div
-        class="navbar-collapse collapse"
-        id="responsive-navbar-nav"
-      >
-        <div
-          class="justify-content-center justify-content-md-between container"
-        >
-          <div
-            class="font-weight-light mr-0 text-white"
-          >
-            My SMU-Library Account
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div>
-  <div
-    class="text-left wrapper flex-grow-1 container"
-  >
-    <div
-      class="c3 d-block mt-5 mb-5 font-weight-light"
-    >
-      Register
-    </div>
-    <div
-      class="c4 d-block"
-    >
-      <div
-        class="row"
-      >
-        <div
-          class="border-left col"
-        >
-          <form
-            class="mb-5"
-            data-testid="registration-form"
-          >
-            <div
-              class="form-group"
-            >
-              <label
-                class="form-label"
-                for="firstName"
-              >
-                First name
-              </label>
-              <input
-                aria-describedby="firstNameHelp"
-                aria-label="firstName"
-                class="w-75 form-control"
-                id="firstName"
-                name="firstName"
-                type="text"
-              />
-              <div
-                class="invalid-feedback"
-              />
-            </div>
-            <div
-              class="form-group"
-            >
-              <label
-                class="form-label"
-                for="lastName"
-              >
-                Last name
-              </label>
-              <input
-                aria-describedby="lastNameHelp"
-                aria-label="lastName"
-                class="w-75 form-control"
-                id="lastName"
-                name="lastName"
-                type="text"
-              />
-              <div
-                class="invalid-feedback"
-              />
-            </div>
-            <div
-              class="form-row"
-            >
-              <div
-                class="form-group col"
-              >
-                <label
-                  class="form-label"
-                  for="emailName"
-                >
-                  Email name
-                </label>
-                <input
-                  aria-describedby="emailNameHelp"
-                  aria-label="emailName"
-                  class="w-100 form-control"
-                  id="emailName"
-                  name="emailName"
-                  type="text"
-                />
-                <div
-                  class="invalid-feedback"
-                />
-              </div>
-              <div
-                class="form-group col"
-              >
-                <label
-                  class="form-label"
-                  for="emailDomain"
-                >
-                  Email domain
-                </label>
-                <select
-                  aria-describedby="emailDomainHelp"
-                  aria-label="emailDomain"
-                  class="w-50 form-control"
-                  id="emailDomain"
-                  name="emailDomain"
-                >
-                  <option
-                    value="@smu.tn"
-                  >
-                    @smu.tn
-                  </option>
-                  <option
-                    value="@msb.tn"
-                  >
-                    @msb.tn
-                  </option>
-                  <option
-                    value="@medtech.tn"
-                  >
-                    @medtech.tn
-                  </option>
-                  <option
-                    value="@lci.tn"
-                  >
-                    @lci.tn
-                  </option>
-                </select>
-                <div
-                  class="invalid-feedback"
-                />
-              </div>
-            </div>
-            <div
-              class="form-group"
-            >
-              <label
-                class="form-label"
-                for="universityID"
-              >
-                University ID
-              </label>
-              <input
-                aria-describedby="universityIDHelp"
-                aria-label="universityID"
-                class="w-75 form-control"
-                id="universityID"
-                name="universityID"
-                type="text"
-              />
-              <div
-                class="invalid-feedback"
-              />
-            </div>
-            <div
-              class="form-group"
-            >
-              <label
-                class="form-label"
-                for="password"
-              >
-                Password
-              </label>
-              <input
-                aria-label="password"
-                class="w-75 form-control"
-                id="password"
-                name="password"
-                type="password"
-              />
-              <div
-                class="invalid-feedback"
-              />
-            </div>
-            <div
-              class="form-group"
-            >
-              <label
-                class="form-label"
-                for="confirmPassword"
-              >
-                Confirm password
-              </label>
-              <input
-                aria-label="confirmPassword"
-                class="w-75 form-control"
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-              />
-              <div
-                class="invalid-feedback"
-              />
-            </div>
-            <button
-              class="w-75 btn btn-primary"
-              data-testid="submit-button"
-              type="submit"
-            >
-              Submit
-            </button>
-          </form>
-        </div>
-        <div
-          class="border-left col"
-        >
-          <div
-            class="row"
-          >
-            <div
-              class="col"
-            >
-              <h4>
-                SMU Library Account
-              </h4>
-              <div
-                class="mt-1"
-              >
-                <small>
-                  Create an account using your SMU email (@smu.tn, @medtech.tn or @msb.tn). Please note that any other email domain is not allowed.
-                </small>
-              </div>
-            </div>
-          </div>
-          <div
-            class="mt-5 row"
-          >
-            <div
-              class="col"
-            >
-              <h4>
-                Already have an account?
-              </h4>
-              <a
-                href="/login"
-              >
-                <button
-                  class="btn btn-primary btn-sm"
-                  type="button"
-                >
-                  Log in
-                </button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <footer
-    class="c5 text-lg-start"
+  <nav
+    class="c0 navbar navbar-expand navbar-light"
   >
     <div
       class="container"
     >
-      <img
-        alt=""
-        src="FOOTER-LOGO.png"
-      />
+      <a
+        href="/"
+      >
+        <img
+          alt=""
+          height="122"
+          src="SMU-LOGO.png"
+          width="263"
+        />
+      </a>
     </div>
-  </footer>
+  </nav>
+  <nav
+    class="c1 navbar navbar-expand-md navbar-dark navbar navbar-expand-lg navbar-light"
+  >
+    <button
+      aria-controls="responsive-navbar-nav"
+      aria-label="Toggle navigation"
+      class="navbar-toggler collapsed"
+      type="button"
+    >
+      <span
+        class="navbar-toggler-icon"
+      />
+    </button>
+    <div
+      class="navbar-collapse collapse"
+      id="responsive-navbar-nav"
+    >
+      <div
+        class="justify-content-center justify-content-md-between container"
+      >
+        <div
+          class="font-weight-light mr-0 text-white"
+        >
+          My SMU-Library Account
+        </div>
+      </div>
+    </div>
+  </nav>
 </div>
 `;

@@ -27,7 +27,7 @@ export function BooksPage(props: Props) {
   }, []);
 
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <>
       <Header title="SMU-Library Books" navItems={[]} account={false} />
       <BooksMain role="main">
         <BooksJumbotron className="text-center">
@@ -50,7 +50,7 @@ export function BooksPage(props: Props) {
         </div>
       </BooksMain>
       <Footer />
-    </div>
+    </>
   );
 }
 

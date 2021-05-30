@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import { useMemberReservationsSlice } from '../UserReservationsPage/slice';
 import {
   selectBookRequestSucceeded,
@@ -22,7 +21,6 @@ import RequestAlert from './Alert';
 import BookDescription from './BookDescription';
 import { useMemberBookSlice } from './slice';
 import { selectMemberBook } from './slice/selectors';
-
 interface Props {}
 
 export function BookPage(props: Props) {
@@ -84,7 +82,7 @@ export function BookPage(props: Props) {
   }, [reservationWithISBN, dispatch]);
 
   return (
-    <Div className="d-flex flex-column min-vh-100">
+    <>
       <Header
         navItems={[]}
         title={selectedBook?.title ? selectedBook.title : ''}
@@ -105,10 +103,6 @@ export function BookPage(props: Props) {
         </Container>
       )}
       <Footer />
-    </Div>
+    </>
   );
 }
-
-const Div = styled.div`
-  background-color: #f6f8fb;
-`;

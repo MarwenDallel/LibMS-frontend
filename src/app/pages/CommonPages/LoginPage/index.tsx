@@ -8,7 +8,6 @@ import { Header } from 'app/components/Header';
 import * as React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components/macro';
 import { LoginForm } from './LoginForm';
 import { SecurityNotice } from './SecurityNotice';
 
@@ -16,7 +15,7 @@ interface Props {}
 
 export function LoginPage(props: Props) {
   return (
-    <Div className="d-flex flex-column min-vh-100">
+    <>
       <Header title="My SMU-Library Account" navItems={[]} account={false} />
       <Container className="text-left wrapper flex-grow-1">
         <div
@@ -47,10 +46,6 @@ export function LoginPage(props: Props) {
         </div>
       </Container>
       <Footer />
-    </Div>
+    </>
   );
 }
-
-const Div = styled.div`
-  background-color: #f6f8fb;
-`;

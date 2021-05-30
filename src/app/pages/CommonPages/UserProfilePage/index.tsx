@@ -41,7 +41,7 @@ export function UserProfilePage(props: Props) {
   });
 
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <>
       <Header title="My SMU-Library Account" navItems={[]} account={false} />
       <Container className="text-center wrapper flex-grow-1 my-5">
         <div
@@ -90,7 +90,7 @@ export function UserProfilePage(props: Props) {
         </ButtonContainer>
       </Container>
       <Footer />
-    </div>
+    </>
   );
 }
 

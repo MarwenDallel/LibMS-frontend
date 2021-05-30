@@ -7,23 +7,18 @@ export function AddBookPage() {
   return (
     <>
       <Header title="Book Adding Form" navItems={[]} account={false} />
-      <div
-        className="d-flex flex-column min-vh-100"
-        style={{ backgroundColor: '#F6F8FB' }}
-      >
-        <Container className="text-left wrapper flex-grow-1 mb-4">
-          <div
-            className="d-block mt-5 mb-5 font-weight-light"
-            style={{ fontSize: '2em' }}
-          >
-            Add a Book
-          </div>
-          <div className="d-block" style={{ fontSize: '1.232em' }}>
-            <AddBook />
-          </div>
-        </Container>
-        <Footer />
-      </div>
+      <Container className="text-left wrapper flex-grow-1 mb-4">
+        <div
+          className="d-block mt-5 mb-5 font-weight-light"
+          style={{ fontSize: '2em' }}
+        >
+          Add a Book
+        </div>
+        <div className="d-block" style={{ fontSize: '1.232em' }}>
+          <AddBook />
+        </div>
+      </Container>
+      <Footer />
     </>
   );
 }
