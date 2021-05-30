@@ -7,6 +7,7 @@ export interface Reservation {
   createdAt: string;
   book: Book;
   reservationStatus: string;
+  returnDate?: string;
 }
 export interface MemberReservationsState {
   isFetching: boolean;

@@ -27,12 +27,7 @@ export const selectIsSuccess = createSelector(
 
 export const selectReservationByBookId = (bookId: string) => {
   return createSelector([selectSlice], state =>
-    state.reservations.filter(
-      r =>
-        r.book.id === bookId &&
-        (r.reservationStatus === 'pending' || r.reservationStatus === 'active'), // makes our lives easier, returns only active or pending reservations
-      // we dont care abt other types
-    ),
+    state.reservations.filter(r => r.book.id === bookId),
   );
 };
 

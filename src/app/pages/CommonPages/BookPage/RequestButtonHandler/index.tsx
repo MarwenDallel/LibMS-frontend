@@ -5,6 +5,7 @@ import { Badge, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemberReservationsSlice } from '../../UserReservationsPage/slice';
 import { Reservation } from '../../UserReservationsPage/slice/types';
+import { RequestButton } from '../Button';
 import { selectMemberBook } from '../slice/selectors';
 
 interface Props {
@@ -25,7 +26,11 @@ export default function RequestButtonHandler({ reservations }: Props) {
   const onCancelBtnClick = () => {
     dispatch(
       reservationActions.cancelReservation({
-        id: reservations.filter(r => r.reservationStatus === 'pending')[0].id,
+        id: reservations.filter(
+          r =>
+            r.reservationStatus === 'pending' ||
+            r.reservationStatus === 'active',
+        )[0].id,
       }),
     );
   };
@@ -40,14 +45,50 @@ export default function RequestButtonHandler({ reservations }: Props) {
     );
   };
 
+  //the user can cancel reservations with the following statuses: pending and accepted (ref: http://shorturl.at/kozAD)
   if (reservations.filter(r => r.reservationStatus === 'pending').length > 0) {
     return (
       <>
         <div>Status: {<Badge variant="warning">Pending</Badge>}</div>
         <div className="mt-2">
-          <Button variant="danger" onClick={onCancelBtnClick}>
-            Cancel
-          </Button>
+          <RequestButton
+            variant="danger"
+            text="Cancel"
+            onClick={onCancelBtnClick}
+          />
+        </div>
+      </>
+    );
+  } else if (
+    reservations.filter(r => r.reservationStatus === 'active').length > 0
+  ) {
+    return (
+      <>
+        {/** update backend to accomodate this, currently it is not allowed */}
+        <div>Status: {<Badge variant="success">Active</Badge>}</div>
+        <small>
+          Your request has been approved, please go to the library to pickup the
+          book.
+        </small>
+        <div className="mt-2">
+          <RequestButton
+            variant="danger"
+            text="Cancel"
+            onClick={onCancelBtnClick}
+          />
+        </div>
+      </>
+    );
+  } else if (
+    reservations.filter(r => r.reservationStatus === 'checkedOut').length > 0
+  ) {
+    return (
+      <>
+        {/** update backend to accomodate this */}
+        <div>Status: {<Badge variant="secondary">Checked Out</Badge>}</div>
+        <div>
+          Return Date:{' '}
+          {new Date(reservations[0].returnDate || '').toDateString()}
         </div>
       </>
     );
