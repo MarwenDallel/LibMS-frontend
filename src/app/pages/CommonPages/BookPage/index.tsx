@@ -12,10 +12,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useMemberReservationsSlice } from '../UserReservationsPage/slice';
 import {
+  selectActivePendingReservation,
   selectBookRequestSucceeded,
   selectCancelRequestSucceeded,
   selectHasFetched,
-  selectReservationByBookId,
 } from '../UserReservationsPage/slice/selectors';
 import RequestAlert from './Alert';
 import BookDescription from './BookDescription';
@@ -34,7 +34,7 @@ export function BookPage(props: Props) {
 
   // I'm using hasFetched in case the store is already setup, to avoid duplicate requests
   const hasFetched = useSelector(selectHasFetched);
-  const reservationWithISBN = useSelector(selectReservationByBookId(id));
+  const reservationWithISBN = useSelector(selectActivePendingReservation(id));
 
   // Listening for borrow request status: Succeeded or Failed
   const hasBorrowRequestSucceeded = useSelector(selectBookRequestSucceeded);
@@ -94,7 +94,7 @@ export function BookPage(props: Props) {
           </Row>
           <BookDescription
             book={selectedBook}
-            reservations={reservationWithISBN}
+            reservation={reservationWithISBN}
           />
         </Container>
       )}

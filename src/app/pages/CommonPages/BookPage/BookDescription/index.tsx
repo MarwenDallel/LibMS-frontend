@@ -8,13 +8,13 @@ import RequestButtonHandler from '../RequestButtonHandler';
 
 interface Props {
   book: Book;
-  reservations: Reservation[];
+  reservation: Reservation;
 }
-export default function BookDescription({ book, reservations }: Props) {
+export default function BookDescription({ book, reservation }: Props) {
   // Placeholder until BookEntity is refactored
   const nbrOfAvailableCopies: number = 2;
 
-  const requestBtn = <RequestButtonHandler reservations={reservations} />;
+  const requestBtn = <RequestButtonHandler reservation={reservation} />;
 
   const availableCopies = (
     <div className="mt-4">

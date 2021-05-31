@@ -9,7 +9,7 @@ import { RequestButton } from '../Button';
 import { selectMemberBook } from '../slice/selectors';
 
 interface Props {
-  reservations: Reservation[];
+  reservation: Reservation;
 }
 
 /**
@@ -18,7 +18,7 @@ interface Props {
  *  - If there's a pending request: show status (pending) + cancel button only.
  */
 
-export default function RequestButtonHandler({ reservations }: Props) {
+export default function RequestButtonHandler({ reservation }: Props) {
   const selectedBook = useSelector(selectMemberBook);
   const { actions: reservationActions } = useMemberReservationsSlice();
   const dispatch = useDispatch();
@@ -26,11 +26,7 @@ export default function RequestButtonHandler({ reservations }: Props) {
   const onCancelBtnClick = () => {
     dispatch(
       reservationActions.cancelReservation({
-        id: reservations.filter(
-          r =>
-            r.reservationStatus === 'pending' ||
-            r.reservationStatus === 'active',
-        )[0].id,
+        id: reservation.id,
       }),
     );
   };
@@ -46,57 +42,55 @@ export default function RequestButtonHandler({ reservations }: Props) {
   };
 
   //the user can cancel reservations with the following statuses: pending and accepted (ref: http://shorturl.at/kozAD)
-  if (reservations.filter(r => r.reservationStatus === 'pending').length > 0) {
-    return (
-      <>
-        <div>Status: {<Badge variant="warning">Pending</Badge>}</div>
-        <div className="mt-2">
-          <RequestButton
-            variant="danger"
-            text="Cancel"
-            onClick={onCancelBtnClick}
-          />
-        </div>
-      </>
-    );
-  } else if (
-    reservations.filter(r => r.reservationStatus === 'active').length > 0
-  ) {
-    return (
-      <>
-        {/** update backend to accomodate this, currently it is not allowed */}
-        <div>Status: {<Badge variant="success">Active</Badge>}</div>
-        <small>
-          Your request has been approved, please go to the library to pickup the
-          book.
-        </small>
-        <div className="mt-2">
-          <RequestButton
-            variant="danger"
-            text="Cancel"
-            onClick={onCancelBtnClick}
-          />
-        </div>
-      </>
-    );
-  } else if (
-    reservations.filter(r => r.reservationStatus === 'checkedOut').length > 0
-  ) {
-    return (
-      <>
-        {/** update backend to accomodate this */}
-        <div>Status: {<Badge variant="secondary">Checked Out</Badge>}</div>
-        <div>
-          Return Date:{' '}
-          {new Date(reservations[0].returnDate || '').toDateString()}
-        </div>
-      </>
-    );
-  } else {
-    return (
-      <Button variant="success" onClick={onBorrowBtnClick}>
-        Borrow
-      </Button>
-    );
+  switch (reservation.reservationStatus) {
+    case 'pending':
+      return (
+        <>
+          <div>Status: {<Badge variant="warning">Pending</Badge>}</div>
+          <div className="mt-2">
+            <RequestButton
+              variant="danger"
+              text="Cancel"
+              onClick={onCancelBtnClick}
+            />
+          </div>
+        </>
+      );
+
+    case 'active':
+      return (
+        <>
+          {/** update backend to accomodate this, currently it is not allowed */}
+          <div>Status: {<Badge variant="success">Active</Badge>}</div>
+          <small>
+            Your request has been approved, please go to the library to pickup
+            the book.
+          </small>
+          <div className="mt-2">
+            <RequestButton
+              variant="danger"
+              text="Cancel"
+              onClick={onCancelBtnClick}
+            />
+          </div>
+        </>
+      );
+
+    case 'checkedOut':
+      return (
+        <>
+          {/** update backend to accomodate this */}
+          <div>Status: {<Badge variant="secondary">Checked Out</Badge>}</div>
+          <div>
+            Return Date: {new Date(reservation.returnDate || '').toDateString()}
+          </div>
+        </>
+      );
+    default:
+      return (
+        <Button variant="success" onClick={onBorrowBtnClick}>
+          Borrow
+        </Button>
+      );
   }
 }

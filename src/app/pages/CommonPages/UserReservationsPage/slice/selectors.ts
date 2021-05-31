@@ -1,9 +1,20 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { Book } from 'app/pages/LibrarianPages/AddBookPage/AddBookForm/slice/types';
 import { RootState } from 'types';
 import { initialState } from '.';
+import { Reservation } from './types';
 
 const selectSlice = (state: RootState) =>
   state.memberReservations || initialState;
+
+// making selectActivePendingReservation null safe
+// https://slashgear.github.io/react-redux-pitfalls-and-best-pratices/#do-not-create-a-reference-in-the-selector
+const defaultEmptyReservation: Reservation = {
+  id: '',
+  createdAt: '',
+  book: {} as Book,
+  reservationStatus: '',
+};
 
 export const selectMemberReservations = createSelector(
   [selectSlice],
@@ -28,6 +39,19 @@ export const selectIsSuccess = createSelector(
 export const selectReservationByBookId = (bookId: string) => {
   return createSelector([selectSlice], state =>
     state.reservations.filter(r => r.book.id === bookId),
+  );
+};
+
+export const selectActivePendingReservation = (bookId: string) => {
+  return createSelector(
+    [selectSlice],
+    state =>
+      state.reservations.filter(
+        r =>
+          r.book.id === bookId &&
+          (r.reservationStatus === 'pending' ||
+            r.reservationStatus === 'active'),
+      )[0] || defaultEmptyReservation,
   );
 };
 
