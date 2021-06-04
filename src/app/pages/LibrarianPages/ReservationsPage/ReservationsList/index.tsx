@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from 'react';
-import { Table, Col, Button, Badge } from 'react-bootstrap';
+import { Badge, Button, Col, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFetchReservationsSlice } from './slice';
 import { selectReservations } from './slice/selectors';
@@ -37,7 +37,7 @@ export const ReservationsList = memo(() => {
 
   const statusToBadge = {
     pending: 'warning',
-    active: 'success',
+    accepted: 'success',
     rejected: 'danger',
   };
   return (
@@ -62,7 +62,7 @@ export const ReservationsList = memo(() => {
           <tr key={i + 1} className="text-center align-items-center">
             <td className="col-3">{reservation.book.title}</td>
             <td className="col-1">{reservation.book.isbn}</td>
-            <td className="col-1">{reservation.book.copiesNbr}</td>
+            <td className="col-1">{reservation.book.copieCount}</td>
             <td className="col-2">{reservation.user.universityID}</td>
             <td className="col-2">{reservation.reservedAt.substring(0, 10)}</td>
             <td className="col-2">
@@ -81,7 +81,7 @@ export const ReservationsList = memo(() => {
                 <Col xs={6}>
                   <Button
                     disabled={
-                      reservation.reservationStatus === 'active' ||
+                      reservation.reservationStatus === 'accepted' ||
                       reservation.reservationStatus === 'rejected' ||
                       reservation.reservationStatus === 'overdue' ||
                       reservation.reservationStatus === 'closed' ||
@@ -99,7 +99,7 @@ export const ReservationsList = memo(() => {
                   <Button
                     disabled={
                       reservation.reservationStatus === 'rejected' ||
-                      reservation.reservationStatus === 'active' ||
+                      reservation.reservationStatus === 'accepted' ||
                       reservation.reservationStatus === 'overdue' ||
                       reservation.reservationStatus === 'closed' ||
                       reservation.reservationStatus === 'cancelled'

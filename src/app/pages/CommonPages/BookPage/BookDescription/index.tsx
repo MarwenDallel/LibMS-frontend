@@ -23,7 +23,7 @@ export default function BookDescription({ book, reservation }: Props) {
       ) : (
         <i className="bi bi-x-circle text-danger"></i>
       )}{' '}
-      {nbrOfAvailableCopies} of {book.copiesNbr} available copies
+      {nbrOfAvailableCopies} of {book.copieCount} available copies
     </div>
   );
 

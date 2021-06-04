@@ -57,7 +57,7 @@ export default function RequestButtonHandler({ reservation }: Props) {
         </>
       );
 
-    case 'active':
+    case 'accepted':
       return (
         <>
           {/** update backend to accomodate this, currently it is not allowed */}

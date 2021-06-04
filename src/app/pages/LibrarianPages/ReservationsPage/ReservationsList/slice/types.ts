@@ -20,7 +20,7 @@ export interface ReservationsState {
 }
 
 export interface AcceptReservationResponse {
-  copiesNbr: number;
+  copieCount: number;
   reservationStatus: string;
   returnDate: string;
   id: string;

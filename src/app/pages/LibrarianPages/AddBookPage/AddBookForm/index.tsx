@@ -150,10 +150,10 @@ export function AddBook(props: IProps) {
             <CustomInputField
               required
               title="Number Of Copies"
-              id="copiesNbr"
+              id="copieCount"
               type="text"
-              htmlFor="copiesNbr"
-              ariaLabel="copiesNbr"
+              htmlFor="copieCount"
+              ariaLabel="copieCount"
             />
           </Col>
           <Col xs={6} md={4}>

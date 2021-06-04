@@ -42,7 +42,7 @@ export function BooksPage(props: Props) {
                   id={book.id}
                   title={book.title}
                   image={book.image}
-                  copiesNumber={book.copiesNbr}
+                  copiesNumber={book.copieCount}
                 ></BookCard>
               ))}
             </div>

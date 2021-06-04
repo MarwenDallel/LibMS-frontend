@@ -17,7 +17,7 @@ interface ReservationResponse {
 }
 interface AcceptReservationResponse extends ReservationResponse {
   returnDate: string;
-  copiesNbr: number;
+  copieCount: number;
 }
 
 const slice = createSlice({
@@ -46,7 +46,7 @@ const slice = createSlice({
         .map(acceptedReservation => {
           acceptedReservation.reservationStatus =
             action.payload.reservationStatus;
-          acceptedReservation.book.copiesNbr = action.payload.copiesNbr;
+          acceptedReservation.book.copieCount = action.payload.copieCount;
           acceptedReservation.returnDate = action.payload.returnDate;
           return null;
         });

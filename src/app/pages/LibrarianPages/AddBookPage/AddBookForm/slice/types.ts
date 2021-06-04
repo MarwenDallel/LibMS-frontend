@@ -15,7 +15,7 @@ export interface Book {
   pageCount: number;
   overview?: string;
   publisher: string;
-  copiesNbr: number;
+  copieCount: number;
 }
 
 export interface AddBookState extends Omit<Book, 'id'> {

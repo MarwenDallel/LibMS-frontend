@@ -50,7 +50,7 @@ export const selectActivePendingReservation = (bookId: string) => {
         r =>
           r.book.id === bookId &&
           (r.reservationStatus === 'pending' ||
-            r.reservationStatus === 'active'),
+            r.reservationStatus === 'accepted'),
       )[0] || defaultEmptyReservation,
   );
 };

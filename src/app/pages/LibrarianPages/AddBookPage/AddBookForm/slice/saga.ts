@@ -18,7 +18,7 @@ export function* addBookSaga(action) {
       publishedDate: action.payload.publicationDate,
       pageCount: action.payload.pageCount,
       image: action.payload.image,
-      copiesNbr: action.payload.copiesNbr,
+      copieCount: action.payload.copieCount,
     };
     const formData = objectToFormData(book);
     const options: AxiosRequestConfig = {

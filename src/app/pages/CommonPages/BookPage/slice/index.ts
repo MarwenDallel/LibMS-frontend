@@ -18,7 +18,7 @@ export const initialState: MemberBookState = {
   pageCount: 0,
   overview: '',
   publisher: '',
-  copiesNbr: 0,
+  copieCount: 0,
   isFetching: false,
   isSuccess: false,
   isError: false,
@@ -44,7 +44,7 @@ const slice = createSlice({
       state.publisher = action.payload.publisher;
       state.publishedDate = action.payload.publicationDate;
       state.pageCount = action.payload.pageCount;
-      state.copiesNbr = action.payload.copiesNbr;
+      state.copieCount = action.payload.copieCount;
       state.image.name = action.payload.image.name;
 
       state.isSuccess = true;
