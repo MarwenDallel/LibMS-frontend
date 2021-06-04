@@ -2,33 +2,45 @@
 
 exports[`<BooksPage  /> should match snapshot 1`] = `
 <div
-  class="justify-content-center h-75 w-100 row"
+  class="table-responsive"
 >
   <table
-    class="w-100 mr-5 ml-5 table table-striped table-bordered table-hover"
+    class="table table-sm table-striped table-bordered table-hover"
   >
     <thead>
       <tr
         class="text-center"
-        style="background-color: rgb(112, 112, 112); color: rgb(229, 229, 229); font-family: Lato;"
+        style="background-color: rgb(112, 112, 112); color: white; font-family: Lato;"
       >
-        <th>
+        <th
+          class="align-middle"
+        >
           Title
         </th>
-        <th>
+        <th
+          class="align-middle"
+        >
           ISBN
         </th>
-        <th>
+        <th
+          class="align-middle"
+        >
           Authors
         </th>
-        <th>
+        <th
+          class="align-middle"
+        >
           Publisher
         </th>
-        <th>
-          PageCount
+        <th
+          class="align-middle d-none d-lg-table-cell"
+        >
+          Pages
         </th>
-        <th>
-          Published Date
+        <th
+          class="align-middle d-none d-lg-table-cell"
+        >
+          Publication Date
         </th>
         <th>
           Actions

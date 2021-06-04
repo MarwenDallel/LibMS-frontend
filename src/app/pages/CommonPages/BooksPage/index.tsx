@@ -9,8 +9,8 @@ import * as React from 'react';
 import { Container, Jumbotron } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import { BookSearch } from '../../../components/BookSearch/Loadable';
 import { BookCard } from './BookCard/Loadable';
-import { BookSearch } from './BookSearch/Loadable';
 import { useBooksSlice } from './slice/index';
 import { selectBooks } from './slice/selectors';
 
@@ -29,9 +29,12 @@ export function BooksPage(props: Props) {
   return (
     <>
       <Header title="SMU-Library Books" />
-      <BooksMain role="main">
+      <BooksMain>
         <BooksJumbotron className="text-center">
-          <BookSearch />
+          <Container className="w-75">
+            <h1 className="mt-4">SMU Library</h1>
+            <BookSearch size="lg" />
+          </Container>
         </BooksJumbotron>
         <div className="py-5 bg-light min-vh-100">
           <Container style={{ maxWidth: '80vw' }}>

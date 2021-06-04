@@ -5,7 +5,7 @@
  */
 import { ASSETS_ENDPOINTS } from 'app/configs/endpoints';
 import * as React from 'react';
-import { Button, Col, Image, Row } from 'react-bootstrap';
+import { Button, Col, Image } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import styled from 'styled-components/macro';
@@ -19,8 +19,11 @@ export function BookDescPage(props: Props) {
 
   const selectedBook = useSelector(selectBookByISBN(id))[0];
   return (
-    <Row className="w-100 ml-4">
-      <Col md="auto">
+    <div
+      className="d-flex flex-row rounded shadow p-4"
+      style={{ backgroundColor: 'white' }}
+    >
+      <Col md={2}>
         <Image
           height={346}
           width={224}
@@ -28,7 +31,7 @@ export function BookDescPage(props: Props) {
           thumbnail
         />
       </Col>
-      <Col md={8}>
+      <Col md={9}>
         <BookTitle className="font-weight-light">
           {selectedBook.title}
         </BookTitle>
@@ -49,11 +52,13 @@ export function BookDescPage(props: Props) {
           <div>Pages: {selectedBook.pageCount}</div>
         </div>
       </Col>
-      <Col md="auto">
-        <Button className="mr-1">Edit</Button>
+      <div>
+        <Button variant="warning" className="mr-1">
+          Edit
+        </Button>
         <Button variant="danger">Delete</Button>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 }
 

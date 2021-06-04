@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { configureAppStore } from 'store/configureStore';
-import { BooksPage } from '..';
+import { BooksPage } from '../Loadable';
 
 const store = configureAppStore();
 

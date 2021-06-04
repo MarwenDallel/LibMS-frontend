@@ -1,13 +1,10 @@
-import * as IconName from 'react-icons/fa';
-
 export const dashboardFeatures = [
-  { name: 'Dashboard', link: '/dashboard', icon: IconName.FaChartBar },
-  { name: 'Library', link: '/dashboard/books', icon: IconName.FaBook },
+  { name: 'Dashboard', link: '/dashboard', icon: 'house-door' },
+  { name: 'Library', link: '/dashboard/books', icon: 'journal-bookmark-fill' },
   {
     name: 'Reservations',
     link: '/dashboard/reservations',
-    icon: IconName.FaRegListAlt,
+    icon: 'clipboard-check',
   },
-  { name: 'Templates', link: '/dashboard', icon: IconName.FaColumns },
-  { name: 'Categories', link: '/dashboard', icon: IconName.FaTag },
+  { name: 'Categories', link: '/dashboard', icon: 'tags' },
 ];

@@ -1,73 +1,51 @@
-import { Sidebar } from 'app/components/Sidebar';
 import React from 'react';
-import {
-  Badge,
-  Col,
-  Container,
-  Dropdown,
-  Form,
-  Nav,
-  Navbar,
-  Row,
-} from 'react-bootstrap';
-import * as IconName from 'react-icons/fa';
+import { Badge, Container, Dropdown, Form } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Sidebar } from '../../../components/Sidebar/index';
 import { BookDescPage } from '../BookDescPage';
 import { BooksPage } from '../BooksPage/Loadable';
 import { ReservationsPage } from '../ReservationsPage';
+
 export function DashboardPage() {
   return (
     <Router>
       <Container fluid>
-        <Row>
-          <Col xs={2} className="d-flex min-vh-100 justify-content-center">
-            <Sidebar />
-          </Col>
-          <Col xs={10} className="bg-light">
-            <Row className="h-25">
-              <Navbar bg="light" className=" w-100 mr-5">
-                <Col xs={4} className="ml-5">
-                  <Nav>
-                    <Form.Group>
-                      <Form.Control
-                        className="w-100"
-                        type="text"
-                        placeholder="Search"
-                      />
-                    </Form.Group>
-                  </Nav>
-                </Col>
-                <Col xs={8} className="d-flex flex-row-reverse mr-5">
-                  <Dropdown className="mr-5">
-                    <Dropdown.Toggle variant={'#73a47'} id="dropdown-basic">
-                      Bechir Jamoussi
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu style={{ backgroundColor: '#73a47' }}>
-                      <Dropdown.Item>Profile</Dropdown.Item>
-                      <Dropdown.Item>Security</Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item href="/logout">Sign out</Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                  <Dropdown className="ml-5 ">
-                    <Dropdown.Toggle variant={'#73a47'} id="dropdown-basic">
-                      <IconName.FaBell />
-                      <Badge variant="danger">9</Badge>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu style={{ backgroundColor: '#73a47' }}>
-                      <Dropdown.Item>
-                        Reservation expires in 2 days
-                      </Dropdown.Item>
-                      <Dropdown.Item>
-                        Reservation expires in 1 day
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Col>
-              </Navbar>
-            </Row>
-            {/** Sidebar elements will be rendered here */}
-            <Row>
+        <div className="row min-vh-100">
+          <Sidebar />
+          <main role="main" className="col-md-9 col-lg-10 md-sm-auto">
+            <div className="d-flex justify-content-between mb-3">
+              <Form.Group>
+                <Form.Control
+                  type="text"
+                  placeholder="Search books, categories"
+                />
+              </Form.Group>
+              <div className="d-flex flex-row-reverse">
+                <Dropdown>
+                  <Dropdown.Toggle variant={'disabled'} id="dropdown-profile">
+                    Bechir Jamoussi
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item>Profile</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item href="/logout">Sign out</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Dropdown>
+                  <Dropdown.Toggle
+                    variant={'disabled'}
+                    id="dropdown-notification"
+                  >
+                    <i className="bi bi-bell-fill"></i>
+                    <Badge variant="danger">1</Badge>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item>Reservation expires in 2 days</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            </div>
+            <div>
               <Switch>
                 <Route
                   path="/dashboard/books"
@@ -85,9 +63,9 @@ export function DashboardPage() {
                   render={() => <BookDescPage />}
                 />
               </Switch>
-            </Row>
-          </Col>
-        </Row>
+            </div>
+          </main>
+        </div>
       </Container>
     </Router>
   );

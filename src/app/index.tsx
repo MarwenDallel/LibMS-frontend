@@ -8,6 +8,7 @@
 
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { GlobalStyle } from 'styles/global-styles';
 import Page from './components/Page';
 import Router from './router';
 
@@ -29,6 +30,7 @@ export function App() {
         />
       </Helmet>
       <Router>{content => <Page>{content}</Page>}</Router>
+      <GlobalStyle></GlobalStyle>
     </>
   );
 }

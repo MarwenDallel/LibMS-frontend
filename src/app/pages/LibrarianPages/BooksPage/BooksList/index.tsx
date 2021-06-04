@@ -5,15 +5,6 @@ import { Link } from 'react-router-dom';
 import { useFetchBooksSlice } from './slice';
 import { selectState } from './slice/selectors';
 
-const features = [
-  'Title',
-  'ISBN',
-  'Authors',
-  'Publisher',
-  'PageCount',
-  'Published Date',
-  'Actions',
-];
 export const BooksList = memo(() => {
   const { actions } = useFetchBooksSlice();
   const dispatch = useDispatch();
@@ -29,34 +20,45 @@ export const BooksList = memo(() => {
   });
 
   return (
-    <Table className="w-100 mr-5 ml-5" striped bordered hover>
+    <Table responsive striped bordered hover size="sm">
       <thead>
         <tr
-          key={1}
           className="text-center"
           style={{
             backgroundColor: '#707070',
-            color: '#E5E5E5',
+            color: 'white',
             fontFamily: 'Lato',
           }}
         >
-          {features.map((feature, i) => (
-            <th key={i * 10}>{feature}</th>
-          ))}
+          <th className="align-middle">Title</th>
+          <th className="align-middle">ISBN</th>
+          <th className="align-middle">Authors</th>
+          <th className="align-middle">Publisher</th>
+          <th className="align-middle d-none d-lg-table-cell">Pages</th>
+          <th className="align-middle d-none d-lg-table-cell">
+            Publication Date
+          </th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        {booksSelected.books.map((book, i) => (
-          <tr key={i + 1} className="text-center">
-            <td className="col-2">{book.title}</td>
-            <td className="col-1">{book.isbn}</td>
-            <td className="col-3">
+        {booksSelected.books.map(book => (
+          <tr className="text-center align-items-middle">
+            <td className="align-middle">{book.title}</td>
+            <td className="align-middle">{book.isbn}</td>
+            <td className="align-middle">
               {book.authors.map(author => author.fullName).join(', ')}
             </td>
-            <td className="col-2">{book.publisher}</td>
-            <td className="col-1">{book.pageCount}</td>
-            <td className="col-2">{book.publishedDate.substring(0, 10)}</td>
-            <td className="col-3">
+            <td className="align-middle">{book.publisher}</td>
+            <td className="align-middle d-none d-lg-table-cell">
+              {book.pageCount}
+            </td>
+            <td className="align-middle d-none d-lg-table-cell">
+              {book.publishedDate
+                ? new Date(book.publishedDate).toLocaleDateString()
+                : 'Unavailable'}
+            </td>
+            <td className="align-middle">
               <Link to={`/dashboard/books/${book.isbn}`}>
                 <Button className="btn-primary btn-sm">Details</Button>
               </Link>

@@ -2,35 +2,49 @@
 
 exports[`<ReservationsPage  /> should match snapshot 1`] = `
 <div
-  class="justify-content-center h-75 w-100 row"
+  class="table-responsive"
 >
   <table
-    class="w-100 mr-5 ml-5 table table-striped table-bordered table-hover"
+    class="table table-sm table-striped table-bordered table-hover"
   >
     <thead>
       <tr
         class="text-center"
-        style="background-color: rgb(112, 112, 112); color: rgb(229, 229, 229); font-family: Lato;"
+        style="background-color: rgb(112, 112, 112); color: white; font-family: Lato;"
       >
-        <th>
+        <th
+          class="align-middle"
+        >
           Book
         </th>
-        <th>
+        <th
+          class="align-middle d-none d-lg-table-cell"
+        >
           ISBN
         </th>
-        <th>
+        <th
+          class="align-middle"
+        >
           Copies
         </th>
-        <th>
+        <th
+          class="align-middle"
+        >
           University ID
         </th>
-        <th>
-          Date of Reservation
+        <th
+          class="align-middle"
+        >
+          Reservation Date
         </th>
-        <th>
+        <th
+          class="align-middle"
+        >
           Return Date
         </th>
-        <th>
+        <th
+          class="align-middle"
+        >
           Status
         </th>
         <th>

@@ -1,29 +1,20 @@
 import React, { memo, useEffect } from 'react';
-import { Badge, Button, Col, Table } from 'react-bootstrap';
+import { Badge, Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFetchReservationsSlice } from './slice';
 import { selectReservations } from './slice/selectors';
 import { ReservationId } from './slice/types';
 
-const features = [
-  'Book',
-  'ISBN',
-  'Copies',
-  'University ID',
-  'Date of Reservation',
-  'Return Date',
-  'Status',
-  'Actions',
-];
-
 export const ReservationsList = memo(() => {
   const { actions } = useFetchReservationsSlice();
   const dispatch = useDispatch();
   const reservationsSelected = useSelector(selectReservations);
+
   const useEffectOnMount = (effect: React.EffectCallback) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(effect, []);
   };
+
   useEffectOnMount(() => {
     dispatch(actions.requestFetchReservations());
   });
@@ -41,44 +32,59 @@ export const ReservationsList = memo(() => {
     rejected: 'danger',
   };
   return (
-    <Table className="w-100 mr-5 ml-5" striped bordered hover>
+    <Table responsive striped bordered hover size="sm">
       <thead>
         <tr
-          key={1}
           className="text-center"
           style={{
             backgroundColor: '#707070',
-            color: '#E5E5E5',
+            color: 'white',
             fontFamily: 'Lato',
           }}
         >
-          {features.map((feature, i) => (
-            <th key={i * 10}>{feature}</th>
-          ))}
+          <th className="align-middle">Book</th>
+          <th className="align-middle d-none d-lg-table-cell">ISBN</th>
+          <th className="align-middle">Copies</th>
+          <th className="align-middle">University ID</th>
+          <th className="align-middle">Reservation Date</th>
+          <th className="align-middle">Return Date</th>
+          <th className="align-middle">Status</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        {reservationsSelected.reservations.map((reservation, i) => (
-          <tr key={i + 1} className="text-center align-items-center">
-            <td className="col-3">{reservation.book.title}</td>
-            <td className="col-1">{reservation.book.isbn}</td>
-            <td className="col-1">{reservation.book.copieCount}</td>
-            <td className="col-2">{reservation.user.universityID}</td>
-            <td className="col-2">{reservation.reservedAt.substring(0, 10)}</td>
-            <td className="col-2">
+        {reservationsSelected.reservations.map(reservation => (
+          <tr className="text-center">
+            <td className="align-middle">{reservation.book.title}</td>
+            <td className="align-middle d-none d-lg-table-cell">
+              {reservation.book.isbn}
+            </td>
+            <td className="align-middle">{reservation.book.copieCount}</td>
+            <td className="align-middle">{reservation.user.universityID}</td>
+            <td className="align-middle">
+              {reservation.reservedAt
+                ? new Date(reservation.reservedAt).toLocaleDateString()
+                : 'Unavailable'}
+            </td>
+            <td className="align-middle">
               {reservation.returnDate
-                ? reservation.returnDate.substring(0, 10)
+                ? new Date(reservation.returnDate).toLocaleDateString()
                 : 'N/A'}
             </td>
-            <td className="col-1">
-              <Badge variant={statusToBadge[reservation.reservationStatus]}>
-                {reservation.reservationStatus.charAt(0).toUpperCase() +
-                  reservation.reservationStatus.slice(1)}
-              </Badge>
+            <td className="align-middle">
+              <h5 className="m-0">
+                <Badge
+                  variant={statusToBadge[reservation.reservationStatus]}
+                  className="text-capitalize"
+                  style={{ width: '6rem' }}
+                >
+                  {reservation.reservationStatus}
+                </Badge>
+              </h5>
             </td>
-            <td className="col-1">
-              <div className="d-flex flex-row">
-                <Col xs={6}>
+            <td className="align-middle">
+              <div className="d-flex justify-content-center flex-row">
+                <div className="d-flex flex-column">
                   <Button
                     disabled={
                       reservation.reservationStatus === 'accepted' ||
@@ -90,12 +96,12 @@ export const ReservationsList = memo(() => {
                     onClick={() =>
                       handleAcceptReservation({ id: reservation.id })
                     }
-                    className="btn-success btn-sm"
+                    className="btn-success btn-sm mr-1"
                   >
                     Accept
                   </Button>
-                </Col>
-                <Col xs={6}>
+                </div>
+                <div className="d-flex flex-column">
                   <Button
                     disabled={
                       reservation.reservationStatus === 'rejected' ||
@@ -107,11 +113,11 @@ export const ReservationsList = memo(() => {
                     onClick={() =>
                       handleRejectReservation({ id: reservation.id })
                     }
-                    className="btn-danger w-100 btn-sm"
+                    className="btn-danger btn-sm ml-1"
                   >
-                    reject
+                    Reject
                   </Button>
-                </Col>
+                </div>
               </div>
             </td>
           </tr>
