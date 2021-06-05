@@ -6,7 +6,7 @@
 import { Footer } from 'app/components/Footer';
 import { Header } from 'app/components/Header';
 import * as React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { RegisterForm } from './RegisterForm';
@@ -32,11 +32,9 @@ export function RegisterPage(props: Props) {
               <Row className="mt-5">
                 <Col>
                   <h4>Already have an account?</h4>
-                  <Link to="/login">
-                    <button type="button" className="btn btn-primary btn-sm">
-                      Log in
-                    </button>
-                  </Link>
+                  <Button as={Link} to="/login" className="btn-primary btn-sm">
+                    Log in
+                  </Button>
                 </Col>
               </Row>
             </Col>

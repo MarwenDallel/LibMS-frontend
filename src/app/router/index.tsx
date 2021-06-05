@@ -3,7 +3,6 @@ import { Role } from 'app/configs/user-roles';
 import { AuthPage } from 'app/pages/CommonPages/AuthPage/Loadable';
 import { BookPage } from 'app/pages/CommonPages/BookPage';
 import { BooksPage } from 'app/pages/CommonPages/BooksPage';
-import { HomePage } from 'app/pages/CommonPages/HomePage/Loadable';
 import { LoginPage } from 'app/pages/CommonPages/LoginPage/Loadable';
 import { LogoutPage } from 'app/pages/CommonPages/LogoutPage';
 import { RegisterPage } from 'app/pages/CommonPages/RegisterPage/Loadable';
@@ -31,8 +30,8 @@ const Router: React.FunctionComponent<Props> = ({ children }) => {
       >
         {children(
           <Switch>
-            <GuardedRoute exact path="/" component={HomePage} />
-            <GuardedRoute exact path="/auth" component={AuthPage} />
+            {/* <GuardedRoute exact path="/" component={HomePage} /> */}
+            <GuardedRoute exact path="/" component={AuthPage} />
             <GuardedRoute exact path="/login" component={LoginPage} />
             <GuardedRoute exact path="/register" component={RegisterPage} />
 

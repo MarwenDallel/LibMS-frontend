@@ -5,6 +5,7 @@
  */
 import { Footer } from 'app/components/Footer';
 import React, { memo } from 'react';
+import { Button } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -29,29 +30,17 @@ export const AuthPage = memo((props: Props) => {
             <Col className="border-left">
               <h4>SMU Students, Faculty and Staff</h4>
               <div className="mt-1">
-                <Link to="/login" data-testid="login-link">
-                  <button
-                    type="button"
-                    className="btn btn-primary btn-sm"
-                    data-testid="login-button"
-                  >
-                    Log in
-                  </button>
-                </Link>
+                <Button as={Link} to="/login" className="btn-primary btn-sm">
+                  Log in
+                </Button>
               </div>
             </Col>
             <Col className="border-left">
               <h4>Create new account</h4>
               <div className="mt-1">
-                <Link to="/register" data-testid="register-link">
-                  <button
-                    type="button"
-                    className="btn btn-primary btn-sm"
-                    data-testid="register-button"
-                  >
-                    Register
-                  </button>
-                </Link>
+                <Button as={Link} to="/register" className="btn-primary btn-sm">
+                  Register
+                </Button>
               </div>
             </Col>
           </Row>

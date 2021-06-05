@@ -18,13 +18,13 @@ const requireRole = async (to, from, next) => {
   const roles = to.meta.roles;
 
   if (!token) {
-    if (roles) next.redirect('/auth');
+    if (roles) next.redirect('/');
     next();
   } else {
     // Check token validity
     const user = await getProfile(token);
     if (!user && !roles) next();
-    if (!user && roles) next.redirect('/auth');
+    if (!user && roles) next.redirect('/');
     if (user) {
       if (roles) roles.includes(user.role) ? next() : next.redirect('/404');
       else next.redirect('/user');

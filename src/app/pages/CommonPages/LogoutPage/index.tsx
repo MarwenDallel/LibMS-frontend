@@ -18,5 +18,5 @@ export function LogoutPage(props: Props) {
     dispatch(actions.requestLogout());
   });
 
-  return <Redirect to="/auth" />;
+  return <Redirect to="/" />;
 }

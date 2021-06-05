@@ -6,7 +6,7 @@
 import { Footer } from 'app/components/Footer';
 import { Header } from 'app/components/Header';
 import * as React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { LoginForm } from './LoginForm';
 import { SecurityNotice } from './SecurityNotice';
@@ -34,11 +34,13 @@ export function LoginPage(props: Props) {
               <Row className="mt-5">
                 <Col>
                   <h4>Don't have an account?</h4>
-                  <Link to="/register">
-                    <button type="button" className="btn btn-primary btn-sm">
-                      Register
-                    </button>
-                  </Link>
+                  <Button
+                    as={Link}
+                    to="/register"
+                    className="btn-primary btn-sm"
+                  >
+                    Register
+                  </Button>
                 </Col>
               </Row>
             </Col>

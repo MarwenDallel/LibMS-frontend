@@ -1,5 +1,7 @@
+import { selectUserProfile } from 'app/pages/CommonPages/UserProfilePage/slice/selectors';
 import React from 'react';
 import { Badge, Container, Dropdown, Form } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Sidebar } from '../../../components/Sidebar/index';
 import { BookDescPage } from '../BookDescPage';
@@ -7,12 +9,14 @@ import { BooksPage } from '../BooksPage/Loadable';
 import { ReservationsPage } from '../ReservationsPage';
 
 export function DashboardPage() {
+  const user = useSelector(selectUserProfile);
+
   return (
     <Router>
       <Container fluid>
         <div className="row min-vh-100">
           <Sidebar />
-          <main role="main" className="col-md-9 col-lg-10 md-sm-auto">
+          <main role="main" className="col-md-9 col-lg-10 mb-4 md-sm-auto">
             <div className="d-flex justify-content-between mb-3">
               <Form.Group>
                 <Form.Control
@@ -23,10 +27,10 @@ export function DashboardPage() {
               <div className="d-flex flex-row-reverse">
                 <Dropdown>
                   <Dropdown.Toggle variant={'disabled'} id="dropdown-profile">
-                    Bechir Jamoussi
+                    {user.firstName + ' ' + user.lastName}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item>Profile</Dropdown.Item>
+                    <Dropdown.Item href="/user">Profile</Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item href="/logout">Sign out</Dropdown.Item>
                   </Dropdown.Menu>

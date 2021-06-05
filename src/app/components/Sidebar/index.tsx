@@ -24,6 +24,7 @@ export const Sidebar = memo(() => {
                 as={Link}
                 to={navigate.link}
                 key={i}
+                className="px-lg-1"
                 style={{
                   fontSize: '1.3em',
                 }}

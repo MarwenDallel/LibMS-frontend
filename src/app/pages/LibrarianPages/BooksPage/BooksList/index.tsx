@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -59,9 +59,13 @@ export const BooksList = memo(() => {
                 : 'Unavailable'}
             </td>
             <td className="align-middle">
-              <Link to={`/dashboard/books/${book.isbn}`}>
-                <Button className="btn-primary btn-sm">Details</Button>
-              </Link>
+              <Button
+                as={Link}
+                to={`/dashboard/books/${book.isbn}`}
+                className="btn-primary btn-sm"
+              >
+                Details
+              </Button>
             </td>
           </tr>
         ))}

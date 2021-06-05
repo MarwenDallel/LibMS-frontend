@@ -16,11 +16,7 @@ export function BookSearch({ size, className }: Props) {
   return (
     <>
       <InputGroup size={size} className={`mb-3 ${className}`}>
-        <SearchInput
-          placeholder="Search books"
-          aria-label="Search books"
-          aria-describedby="basic-addon2"
-        />
+        <SearchInput placeholder="Search books" aria-label="Search books" />
         <InputGroup.Append>
           <SearchButton>Search</SearchButton>
         </InputGroup.Append>
