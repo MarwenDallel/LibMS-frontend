@@ -8,11 +8,10 @@ import { Header } from 'app/components/Header';
 import React, { useEffect } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReservationsTable } from './ReservationsTable';
 import { MultiCheckBoxColumnFilter } from '../../../components/Filters/checkBoxFilter';
+import { ReservationsTable } from './ReservationsTable';
 import { useMemberReservationsSlice } from './slice';
 import { selectMemberReservations } from './slice/selectors';
-import { ReservationId } from './slice/types';
 
 interface Props {}
 
@@ -28,11 +27,11 @@ export function UserReservationsPage(props: Props) {
   };
 
   useEffectOnMount(() => {
-    dispatch(reservationActions.fetchUserReservations({}));
+    dispatch(reservationActions.fetchUserReservations());
   });
 
-  const onCancelBtnClick = (data: ReservationId): void => {
-    dispatch(reservationActions.cancelReservation(data));
+  const onCancelBtnClick = (id: string): void => {
+    dispatch(reservationActions.cancelReservation(id));
   };
 
   const columns = React.useMemo(
@@ -43,12 +42,19 @@ export function UserReservationsPage(props: Props) {
         disableFilters: true,
       },
       {
-        Header: 'Date Of Reservation',
+        Header: 'Reservation Date',
         accessor: 'reservedAt',
         disableFilters: true,
-
         Cell: ({ value }) => {
-          return value.substring(0, 10) + ' ' + value.substring(11, 19);
+          return value ? new Date(value).toLocaleDateString() : 'Unavailable';
+        },
+      },
+      {
+        Header: 'Return Date',
+        accessor: 'returnDate',
+        disableFilters: true,
+        Cell: ({ value }) => {
+          return value ? new Date(value).toLocaleDateString() : 'N/A';
         },
       },
       {
@@ -65,17 +71,14 @@ export function UserReservationsPage(props: Props) {
         accessor: 'actions',
         disableFilters: true,
         Cell: value => {
-          const rowIdx = value.row.original;
+          const reservation = value.row.original;
           return (
             <Button
               disabled={
-                rowIdx.reservationStatus === 'cancelled' ||
-                rowIdx.reservationStatus === 'checkedOut' ||
-                rowIdx.reservationStatus === 'rejected' ||
-                rowIdx.reservationStatus === 'overdue' ||
-                rowIdx.reservationStatus === 'closed'
+                reservation.reservationStatus !== 'pending' ||
+                reservation.reservationStatus !== 'accepted'
               }
-              onClick={() => onCancelBtnClick({ id: rowIdx.id })}
+              onClick={() => onCancelBtnClick(reservation.id)}
               className="btn-danger btn-sm"
               block
             >

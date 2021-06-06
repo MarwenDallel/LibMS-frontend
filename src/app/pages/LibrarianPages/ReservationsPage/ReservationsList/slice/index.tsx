@@ -2,89 +2,70 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { fetchReservationsRootState } from './saga';
-import { ReservationsState } from './types';
+import { ReservationsState, ReservationStatus } from './types';
 
 export const initialState: ReservationsState = {
   reservations: [],
   isFetching: false,
   isError: false,
   isSuccess: false,
+  errorMessage: '',
 };
-
-interface ReservationResponse {
-  reservationStatus: string;
-  id: string;
-}
-interface AcceptReservationResponse extends ReservationResponse {
-  returnDate: string;
-  copieCount: number;
-}
 
 const slice = createSlice({
   name: 'reservations',
   initialState,
   reducers: {
-    requestFetchReservations(state) {
+    // Load reservations
+    requestReservations(state) {
       state.isFetching = true;
     },
-    FetchReservationsSuccess(state, action: PayloadAction<any>) {
+    reservationsLoaded(state, action: PayloadAction<any>) {
       state.reservations = action.payload.reservations;
-      state.isSuccess = true;
-      state.isError = false;
-      state.isFetching = false;
-      return state;
     },
-    requestAcceptReservation(state, action: PayloadAction<{ id: string }>) {
+
+    // Accept reservation by ID
+    requestAcceptReservation(state, action: PayloadAction<string>) {
       state.isFetching = true;
     },
-    acceptReservationSuccess(
-      state,
-      action: PayloadAction<AcceptReservationResponse>,
-    ) {
+    acceptReservation(state, action: PayloadAction<string>) {
       state.reservations
-        .filter(reservation => reservation.id === action.payload.id)
-        .map(acceptedReservation => {
-          acceptedReservation.reservationStatus =
-            action.payload.reservationStatus;
-          acceptedReservation.book.copieCount = action.payload.copieCount;
-          acceptedReservation.returnDate = action.payload.returnDate;
-          return null;
+        .filter(reservation => reservation.id === action.payload)
+        .map(reservation => {
+          reservation.reservationStatus = ReservationStatus.accepted;
+          return reservation;
         });
-      state.isSuccess = true;
-      state.isError = false;
-      state.isFetching = false;
-      return state;
     },
-    requestrejectReservation(state, action: PayloadAction<any>) {
+
+    // Reject reservation by ID
+    requestRejectReservation(state, action: PayloadAction<string>) {
       state.isFetching = true;
     },
-    rejectReservationSuccess(
-      state,
-      action: PayloadAction<ReservationResponse>,
-    ) {
+    rejectReservation(state, action: PayloadAction<string>) {
       state.reservations
-        .filter(reservation => reservation.id === action.payload.id)
-        .map(rejectedReservation => {
-          rejectedReservation.reservationStatus =
-            action.payload.reservationStatus;
-          return null;
+        .filter(reservation => reservation.id === action.payload)
+        .map(reservation => {
+          reservation.reservationStatus = ReservationStatus.rejected;
+          return reservation;
         });
+    },
+
+    // Generic response (this is stupid)
+    requestSuccess(state) {
       state.isSuccess = true;
       state.isError = false;
       state.isFetching = false;
-      return state;
     },
-    rejectReservationFailed(state) {
+    requestFailed(state, action: PayloadAction<string>) {
       state.isSuccess = false;
       state.isError = true;
       state.isFetching = false;
+      state.errorMessage = action.payload;
     },
   },
 });
 
-export const { actions: fetchReservationsActions } = slice;
-export const { actions: acceptReservationActions } = slice;
-export const { actions: rejectReservationActions } = slice;
+export const { actions: reservationActions, reducer } = slice;
 
 export const useFetchReservationsSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });

@@ -77,7 +77,7 @@ export function BookPage(props: Props) {
   useEffectOnMount(() => {
     // No store? fetch the reservations
     if (!hasFetched) {
-      dispatch(reservationActions.fetchUserReservations({}));
+      dispatch(reservationActions.fetchUserReservations());
     }
   }, [reservationWithISBN, dispatch]);
 

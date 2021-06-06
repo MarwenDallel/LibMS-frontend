@@ -4,8 +4,6 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import request from 'utils/request';
 import { memberReservationsActions as actions } from '.';
 
-// function* doSomething() {}
-
 function* getUserReservations() {
   try {
     const { reservations } = yield call(
@@ -30,7 +28,7 @@ function* sendBorrowRequest(requestDetails) {
     };
     const { id } = yield call(
       request,
-      RESERVATION_ENDPOINTS.createReservation,
+      RESERVATION_ENDPOINTS.reservations,
       options,
     );
 
@@ -51,19 +49,12 @@ function* sendBorrowRequest(requestDetails) {
 
 function* cancelReservation(requestDetails) {
   try {
-    const param = {
-      id: requestDetails.payload.id,
-    };
-    const options: AxiosRequestConfig = {
-      method: 'PATCH',
-    };
     yield call(
-      request,
-      `${RESERVATION_ENDPOINTS.cancelReservation}/${param.id}/cancel`,
-      options,
+      request.patch,
+      `${RESERVATION_ENDPOINTS.reservations}/${requestDetails.payload}/cancel`,
     );
     yield put(actions.cancelReservationSuccess());
-    yield put(actions.removeReservationFromStore(requestDetails.payload.id));
+    yield put(actions.removeReservationFromStore(requestDetails.payload));
   } catch (error) {
     yield put(actions.cancelReservationFailed(error.message));
     console.log('[CANCEL_RESERVATION_ERROR]', error.message);
@@ -75,9 +66,8 @@ function* setUserReservations(action) {
 }
 
 export function* memberReservationsSaga() {
-  // yield takeLatest(actions.someAction.type, doSomething);
   yield all([
-    takeLatest(actions.fetchUserReservations, getUserReservations),
+    takeLatest(actions.fetchUserReservations.type, getUserReservations),
     takeLatest(actions.setReservations.type, setUserReservations),
     takeLatest(actions.requestReservation.type, sendBorrowRequest),
     takeLatest(actions.cancelReservation.type, cancelReservation),

@@ -1,6 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Book } from 'app/pages/LibrarianPages/AddBookPage/AddBookForm/slice/types';
-import { ReservationId } from 'app/pages/LibrarianPages/ReservationsPage/ReservationsList/slice/types';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { memberReservationsSaga } from './saga';
@@ -25,7 +24,7 @@ const slice = createSlice({
   name: 'memberReservations',
   initialState,
   reducers: {
-    fetchUserReservations(state, action: PayloadAction<any>) {
+    fetchUserReservations(state) {
       state.isFetching = true;
     },
     // this is called after the API request for fetching reservations
@@ -70,7 +69,7 @@ const slice = createSlice({
     addReservation(state, action: PayloadAction<Reservation>) {
       state.reservations.push(action.payload);
     },
-    cancelReservation(state, action: PayloadAction<ReservationId>) {},
+    cancelReservation(state, action: PayloadAction<string>) {},
     cancelReservationSuccess(state) {
       state.isCancelledRequestFailed = false;
       state.isCancelledRequestSuccess = true;
@@ -101,15 +100,3 @@ export const useMemberReservationsSlice = () => {
 };
 
 export const MemberReservationReducers = slice.reducer;
-
-/**
- * Example Usage:
- *
- * export function MyComponentNeedingThisSlice() {
- *  const { actions } = useMemberReservationsSlice();
- *
- *  const onButtonClick = (evt) => {
- *    dispatch(actions.someAction());
- *   };
- * }
- */

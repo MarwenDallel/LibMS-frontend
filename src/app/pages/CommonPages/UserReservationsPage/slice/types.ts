@@ -26,7 +26,3 @@ export interface MemberReservationsState {
   isCancelledRequestFailed: boolean;
   cancelRequestFailureMessage: string;
 }
-
-export interface ReservationId {
-  id: string;
-}

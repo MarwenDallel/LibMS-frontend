@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DashboardTable } from '../../DashboardPage/dashboardTable';
 import { useFetchReservationsSlice } from './slice';
 import { selectReservations } from './slice/selectors';
-import { ReservationId } from './slice/types';
 
 export const ReservationsList = memo(() => {
   const { actions } = useFetchReservationsSlice();
@@ -18,14 +17,14 @@ export const ReservationsList = memo(() => {
   };
 
   useEffectOnMount(() => {
-    dispatch(actions.requestFetchReservations());
+    dispatch(actions.requestReservations());
   });
 
-  const handleAcceptReservation = (data: ReservationId): void => {
-    dispatch(actions.requestAcceptReservation(data));
+  const handleAcceptReservation = (id: string): void => {
+    dispatch(actions.requestAcceptReservation(id));
   };
-  const handleRejectReservation = (data: ReservationId): void => {
-    dispatch(actions.requestrejectReservation(data));
+  const handleRejectReservation = (id: string): void => {
+    dispatch(actions.requestRejectReservation(id));
   };
 
   const columns = React.useMemo(
@@ -51,16 +50,19 @@ export const ReservationsList = memo(() => {
         disableFilters: true,
       },
       {
-        Header: 'University ID',
-        accessor: 'user.universityID',
-        disableFilters: true,
-      },
-      {
-        Header: 'Date Of Reservation',
+        Header: 'Reservation Date',
         accessor: 'reservedAt',
         disableFilters: true,
         Cell: ({ value }) => {
-          return value.substring(0, 10) + ' ' + value.substring(11, 19);
+          return value ? new Date(value).toLocaleDateString() : 'Unavailable';
+        },
+      },
+      {
+        Header: 'Return Date',
+        accessor: 'returnDate',
+        disableFilters: true,
+        Cell: ({ value }) => {
+          return value ? new Date(value).toLocaleDateString() : 'N/A';
         },
       },
       {
@@ -77,34 +79,20 @@ export const ReservationsList = memo(() => {
         accessor: 'actions',
         disableFilters: true,
         Cell: value => {
-          const rowIdx = value.row.original;
+          const reservation = value.row.original;
           return (
             <>
               <Button
-                disabled={
-                  rowIdx.reservationStatus === 'cancelled' ||
-                  rowIdx.reservationStatus === 'accepted' ||
-                  rowIdx.reservationStatus === 'checkedOut' ||
-                  rowIdx.reservationStatus === 'rejected' ||
-                  rowIdx.reservationStatus === 'overdue' ||
-                  rowIdx.reservationStatus === 'closed'
-                }
-                onClick={() => handleAcceptReservation({ id: rowIdx.id })}
+                disabled={reservation.reservationStatus !== 'pending'}
+                onClick={() => handleAcceptReservation(reservation.id)}
                 className="btn-success btn-sm mr-1"
                 block
               >
                 Accept
               </Button>
               <Button
-                disabled={
-                  rowIdx.reservationStatus === 'cancelled' ||
-                  rowIdx.reservationStatus === 'accepted' ||
-                  rowIdx.reservationStatus === 'checkedOut' ||
-                  rowIdx.reservationStatus === 'rejected' ||
-                  rowIdx.reservationStatus === 'overdue' ||
-                  rowIdx.reservationStatus === 'closed'
-                }
-                onClick={() => handleRejectReservation({ id: rowIdx.id })}
+                disabled={reservation.reservationStatus !== 'pending'}
+                onClick={() => handleRejectReservation(reservation.id)}
                 className="btn-danger btn-sm mr-1"
                 block
               >

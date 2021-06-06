@@ -1,14 +1,22 @@
 import { User } from 'app/pages/CommonPages/UserProfilePage/slice/types';
 import { Book } from 'app/pages/LibrarianPages/AddBookPage/AddBookForm/slice/types';
 
-export interface ReservationId {
-  id: string;
+export enum ReservationStatus {
+  pending = 'pending',
+  rejected = 'rejected',
+  accepted = 'accepted',
+  overdue = 'overdue',
+  returned = 'returned',
+  cancelled = 'cancelled',
+  checkedOut = 'checkedOut',
 }
-export interface Reservation extends ReservationId {
+
+export interface Reservation {
+  id: string;
   book: Book;
   reservedAt: string;
   user: User;
-  reservationStatus: string;
+  reservationStatus: keyof typeof ReservationStatus;
   returnDate?: string;
 }
 
@@ -17,15 +25,5 @@ export interface ReservationsState {
   isFetching?: boolean;
   isError?: boolean;
   isSuccess?: boolean;
-}
-
-export interface AcceptReservationResponse {
-  copieCount: number;
-  reservationStatus: string;
-  returnDate: string;
-  id: string;
-}
-
-export interface rejectReservationResponse {
-  id: string;
+  errorMessage?: string;
 }

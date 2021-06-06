@@ -24,11 +24,7 @@ export default function RequestButtonHandler({ reservation }: Props) {
   const dispatch = useDispatch();
 
   const onCancelBtnClick = () => {
-    dispatch(
-      reservationActions.cancelReservation({
-        id: reservation.id,
-      }),
-    );
+    dispatch(reservationActions.cancelReservation(reservation.id));
   };
 
   const onBorrowBtnClick = () => {
@@ -82,7 +78,10 @@ export default function RequestButtonHandler({ reservation }: Props) {
           {/** update backend to accomodate this */}
           <div>Status: {<Badge variant="secondary">Checked Out</Badge>}</div>
           <div>
-            Return Date: {new Date(reservation.returnDate || '').toDateString()}
+            Return Date:{' '}
+            {reservation.returnDate
+              ? new Date(reservation.returnDate).toDateString()
+              : 'N/A'}
           </div>
         </>
       );
