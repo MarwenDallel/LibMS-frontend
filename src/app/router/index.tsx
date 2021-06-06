@@ -7,6 +7,7 @@ import { LoginPage } from 'app/pages/CommonPages/LoginPage/Loadable';
 import { LogoutPage } from 'app/pages/CommonPages/LogoutPage';
 import { RegisterPage } from 'app/pages/CommonPages/RegisterPage/Loadable';
 import { UserProfilePage } from 'app/pages/CommonPages/UserProfilePage';
+import { UserReservationsPage } from 'app/pages/CommonPages/UserReservationsPage';
 import { AddBookPage } from 'app/pages/LibrarianPages/AddBookPage';
 import { DashboardPage } from 'app/pages/LibrarianPages/DashboardPage';
 import React from 'react';
@@ -63,6 +64,11 @@ const Router: React.FunctionComponent<Props> = ({ children }) => {
               path="/add-book"
               component={AddBookPage}
               meta={{ roles: [Role.Librarian] }}
+            />
+            <GuardedRoute
+              path="/list-reservations"
+              component={UserReservationsPage}
+              meta={{ roles: [Role.Librarian, Role.Member] }}
             />
             <GuardedRoute
               path="/dashboard"

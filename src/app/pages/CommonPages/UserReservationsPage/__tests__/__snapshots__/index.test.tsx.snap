@@ -1,7 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<UserReservationsPage  /> should match snapshot 1`] = `
-<div>
-  She wanna molest me
-</div>
+.c0 {
+  background-color: #203549;
+}
+
+<nav
+  class="c0 navbar navbar-expand navbar-light"
+>
+  <div
+    class="container"
+  >
+    <a
+      href="/"
+    >
+      <img
+        alt=""
+        height="122"
+        src="SMU-LOGO.png"
+        width="263"
+      />
+    </a>
+  </div>
+</nav>
 `;

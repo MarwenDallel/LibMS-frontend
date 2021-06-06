@@ -8,6 +8,7 @@ export interface Reservation {
   book: Book;
   reservationStatus: string;
   returnDate?: string;
+  reservedAt?: string;
 }
 export interface MemberReservationsState {
   isFetching: boolean;
@@ -24,4 +25,8 @@ export interface MemberReservationsState {
   isCancelledRequestSuccess: boolean;
   isCancelledRequestFailed: boolean;
   cancelRequestFailureMessage: string;
+}
+
+export interface ReservationId {
+  id: string;
 }

@@ -86,6 +86,13 @@ export function UserProfilePage(props: Props) {
             >
               List of Books
             </Link>
+            <Link
+              className="btn btn-info w-100 btn-block"
+              role="button"
+              to="/list-reservations"
+            >
+              My Reservations
+            </Link>
           </ButtonGroup>
         </ButtonContainer>
       </Container>
