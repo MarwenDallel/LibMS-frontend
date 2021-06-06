@@ -1,7 +1,9 @@
+import { MultiCheckBoxColumnFilter } from 'app/components/Filters/checkBoxFilter';
 import React, { memo, useEffect } from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { DashboardTable } from '../../DashboardPage/dashboardTable';
 import { useFetchBooksSlice } from './slice';
 import { selectState } from './slice/selectors';
 
@@ -19,57 +21,68 @@ export const BooksList = memo(() => {
     dispatch(actions.requestFetchBooks());
   });
 
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: 'Book',
+        accessor: 'title',
+        disableFilters: true,
+      },
+      {
+        Header: 'ISBN',
+        accessor: 'isbn',
+        disableFilters: true,
+      },
+      {
+        Header: 'Authors',
+        accessor: 'authors',
+        Cell: authors => {
+          return (
+            <div className="text-center">
+              {authors.value.map(author => author.fullName).join(', ')}
+            </div>
+          );
+        },
+        disableFilters: true,
+      },
+      {
+        Header: 'Publisher',
+        accessor: 'publisher',
+        Filter: MultiCheckBoxColumnFilter,
+        filter: 'multiSelect',
+      },
+      {
+        Header: 'Pages',
+        accessor: 'pageCount',
+        disableFilters: true,
+      },
+      {
+        Header: 'Copies',
+        accessor: 'copieCount',
+        disableFilters: true,
+      },
+      {
+        Header: 'Details',
+        Cell: book => {
+          return (
+            <Button
+              as={Link}
+              to={`/dashboard/books/${book.row.values.isbn}`}
+              className="btn-primary btn-sm"
+            >
+              Details
+            </Button>
+          );
+        },
+      },
+    ],
+    [],
+  );
+
   return (
-    <Table responsive striped bordered hover size="sm">
-      <thead>
-        <tr
-          className="text-center"
-          style={{
-            backgroundColor: '#707070',
-            color: 'white',
-            fontFamily: 'Lato',
-          }}
-        >
-          <th className="align-middle">Title</th>
-          <th className="align-middle">ISBN</th>
-          <th className="align-middle">Authors</th>
-          <th className="align-middle">Publisher</th>
-          <th className="align-middle d-none d-lg-table-cell">Pages</th>
-          <th className="align-middle d-none d-lg-table-cell">
-            Publication Date
-          </th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {booksSelected.books.map(book => (
-          <tr className="text-center align-items-middle">
-            <td className="align-middle">{book.title}</td>
-            <td className="align-middle">{book.isbn}</td>
-            <td className="align-middle">
-              {book.authors.map(author => author.fullName).join(', ')}
-            </td>
-            <td className="align-middle">{book.publisher}</td>
-            <td className="align-middle d-none d-lg-table-cell">
-              {book.pageCount}
-            </td>
-            <td className="align-middle d-none d-lg-table-cell">
-              {book.publishedDate
-                ? new Date(book.publishedDate).toLocaleDateString()
-                : 'Unavailable'}
-            </td>
-            <td className="align-middle">
-              <Button
-                as={Link}
-                to={`/dashboard/books/${book.isbn}`}
-                className="btn-primary btn-sm"
-              >
-                Details
-              </Button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </Table>
+    <DashboardTable
+      columns={columns}
+      data={booksSelected.books}
+    ></DashboardTable>
   );
 });

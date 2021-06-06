@@ -1,6 +1,8 @@
+import { MultiCheckBoxColumnFilter } from 'app/components/Filters/checkBoxFilter';
 import React, { memo, useEffect } from 'react';
-import { Badge, Button, Table } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { DashboardTable } from '../../DashboardPage/dashboardTable';
 import { useFetchReservationsSlice } from './slice';
 import { selectReservations } from './slice/selectors';
 import { ReservationId } from './slice/types';
@@ -26,103 +28,103 @@ export const ReservationsList = memo(() => {
     dispatch(actions.requestrejectReservation(data));
   };
 
-  const statusToBadge = {
-    pending: 'warning',
-    accepted: 'success',
-    rejected: 'danger',
-  };
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: 'Book',
+        accessor: 'book.title',
+        disableFilters: true,
+      },
+      {
+        Header: 'ISBN',
+        accessor: 'book.isbn',
+        disableFilters: true,
+      },
+      {
+        Header: 'Copies',
+        accessor: 'book.copieCount',
+        disableFilters: true,
+      },
+      {
+        Header: 'Email',
+        accessor: 'user.email',
+        disableFilters: true,
+      },
+      {
+        Header: 'University ID',
+        accessor: 'user.universityID',
+        disableFilters: true,
+      },
+      {
+        Header: 'Date Of Reservation',
+        accessor: 'reservedAt',
+        disableFilters: true,
+        Cell: ({ value }) => {
+          return value.substring(0, 10) + ' ' + value.substring(11, 19);
+        },
+      },
+      {
+        Header: 'Status',
+        accessor: 'reservationStatus',
+        Filter: MultiCheckBoxColumnFilter,
+        filter: 'multiSelect',
+        Cell: ({ value }) => {
+          return value.charAt(0).toUpperCase() + value.slice(1);
+        },
+      },
+      {
+        Header: 'Actions',
+        accessor: 'actions',
+        disableFilters: true,
+        Cell: value => {
+          const rowIdx = value.row.original;
+          return (
+            <>
+              <Button
+                disabled={
+                  rowIdx.reservationStatus === 'cancelled' ||
+                  rowIdx.reservationStatus === 'accepted' ||
+                  rowIdx.reservationStatus === 'checkedOut' ||
+                  rowIdx.reservationStatus === 'rejected' ||
+                  rowIdx.reservationStatus === 'overdue' ||
+                  rowIdx.reservationStatus === 'closed'
+                }
+                onClick={() => handleAcceptReservation({ id: rowIdx.id })}
+                className="btn-success btn-sm mr-1"
+                block
+              >
+                Accept
+              </Button>
+              <Button
+                disabled={
+                  rowIdx.reservationStatus === 'cancelled' ||
+                  rowIdx.reservationStatus === 'accepted' ||
+                  rowIdx.reservationStatus === 'checkedOut' ||
+                  rowIdx.reservationStatus === 'rejected' ||
+                  rowIdx.reservationStatus === 'overdue' ||
+                  rowIdx.reservationStatus === 'closed'
+                }
+                onClick={() => handleRejectReservation({ id: rowIdx.id })}
+                className="btn-danger btn-sm mr-1"
+                block
+              >
+                Reject
+              </Button>
+            </>
+          );
+        },
+      },
+    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+
   return (
-    <Table responsive striped bordered hover size="sm">
-      <thead>
-        <tr
-          className="text-center"
-          style={{
-            backgroundColor: '#707070',
-            color: 'white',
-            fontFamily: 'Lato',
-          }}
-        >
-          <th className="align-middle">Book</th>
-          <th className="align-middle d-none d-lg-table-cell">ISBN</th>
-          <th className="align-middle">Copies</th>
-          <th className="align-middle">University ID</th>
-          <th className="align-middle">Reservation Date</th>
-          <th className="align-middle">Return Date</th>
-          <th className="align-middle">Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {reservationsSelected.reservations.map(reservation => (
-          <tr className="text-center">
-            <td className="align-middle">{reservation.book.title}</td>
-            <td className="align-middle d-none d-lg-table-cell">
-              {reservation.book.isbn}
-            </td>
-            <td className="align-middle">{reservation.book.copieCount}</td>
-            <td className="align-middle">{reservation.user.universityID}</td>
-            <td className="align-middle">
-              {reservation.reservedAt
-                ? new Date(reservation.reservedAt).toLocaleDateString()
-                : 'Unavailable'}
-            </td>
-            <td className="align-middle">
-              {reservation.returnDate
-                ? new Date(reservation.returnDate).toLocaleDateString()
-                : 'N/A'}
-            </td>
-            <td className="align-middle">
-              <h5 className="m-0">
-                <Badge
-                  variant={statusToBadge[reservation.reservationStatus]}
-                  className="text-capitalize"
-                  style={{ width: '6rem' }}
-                >
-                  {reservation.reservationStatus}
-                </Badge>
-              </h5>
-            </td>
-            <td className="align-middle">
-              <div className="d-flex justify-content-center flex-row">
-                <div className="d-flex flex-column">
-                  <Button
-                    disabled={
-                      reservation.reservationStatus === 'accepted' ||
-                      reservation.reservationStatus === 'rejected' ||
-                      reservation.reservationStatus === 'overdue' ||
-                      reservation.reservationStatus === 'closed' ||
-                      reservation.reservationStatus === 'cancelled'
-                    }
-                    onClick={() =>
-                      handleAcceptReservation({ id: reservation.id })
-                    }
-                    className="btn-success btn-sm mr-1"
-                  >
-                    Accept
-                  </Button>
-                </div>
-                <div className="d-flex flex-column">
-                  <Button
-                    disabled={
-                      reservation.reservationStatus === 'rejected' ||
-                      reservation.reservationStatus === 'accepted' ||
-                      reservation.reservationStatus === 'overdue' ||
-                      reservation.reservationStatus === 'closed' ||
-                      reservation.reservationStatus === 'cancelled'
-                    }
-                    onClick={() =>
-                      handleRejectReservation({ id: reservation.id })
-                    }
-                    className="btn-danger btn-sm ml-1"
-                  >
-                    Reject
-                  </Button>
-                </div>
-              </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </Table>
+    <>
+      <DashboardTable
+        columns={columns}
+        data={reservationsSelected.reservations}
+      ></DashboardTable>
+    </>
   );
 });
