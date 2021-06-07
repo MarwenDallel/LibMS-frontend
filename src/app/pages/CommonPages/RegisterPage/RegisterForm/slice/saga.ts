@@ -30,13 +30,11 @@ export function* registerUserSaga(action) {
       }),
     );
   } catch (error) {
-    if (error.response?.status === 409) {
-      yield put(
-        useRegistrationActions.registerFail({
-          message: 'Registration Failed: Please retry',
-        }),
-      );
-    }
+    yield put(
+      useRegistrationActions.registerFail({
+        message: error.message,
+      }),
+    );
   }
 }
 

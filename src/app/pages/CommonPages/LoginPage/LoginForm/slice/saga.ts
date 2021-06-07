@@ -25,11 +25,29 @@ function* loginUserSaga(action) {
       }),
     );
   } catch (error) {
-    yield put(
-      actions.loginFailed({
-        message: 'Login Failed: Please check your credentials',
-      }),
-    );
+    /**
+     * error object
+     * {
+     *  error: string;
+     *  message: string
+     *  statusCode: number
+     * }
+     */
+    console.log(error.message);
+
+    if (error.message === 'Unauthorized') {
+      yield put(
+        actions.loginFailed({
+          message: 'Login Failed: Please check your credentials',
+        }),
+      );
+    } else {
+      yield put(
+        actions.loginFailed({
+          message: error.message,
+        }),
+      );
+    }
   } finally {
     if (yield cancelled()) {
       yield call(clearToken);

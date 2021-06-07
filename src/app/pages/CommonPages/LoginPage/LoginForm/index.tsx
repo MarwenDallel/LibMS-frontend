@@ -41,7 +41,7 @@ export function LoginForm() {
     if (isError && showAlert) {
       return (
         <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
-          <Alert.Heading>{errorMessage}</Alert.Heading>
+          {errorMessage}
         </Alert>
       );
     }
