@@ -72,10 +72,11 @@ export function UserReservationsPage(props: Props) {
         disableFilters: true,
         Cell: value => {
           const reservation = value.row.original;
+          console.log(reservation);
           return (
             <Button
               disabled={
-                reservation.reservationStatus !== 'pending' ||
+                reservation.reservationStatus !== 'pending' &&
                 reservation.reservationStatus !== 'accepted'
               }
               onClick={() => onCancelBtnClick(reservation.id)}
