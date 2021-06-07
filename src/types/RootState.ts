@@ -2,6 +2,7 @@
 
 import { MemberBookState } from 'app/pages/CommonPages/BookPage/slice/types';
 import { MemberBooksState } from 'app/pages/CommonPages/BooksPage/slice/types';
+import { EmailConfirmationState } from 'app/pages/CommonPages/EmailConfirmation/slice/types';
 import { LoginUserState } from 'app/pages/CommonPages/LoginPage/LoginForm/slice/types';
 import { LogoutUserState } from 'app/pages/CommonPages/LogoutPage/slice/types';
 import { RegisterUserState } from 'app/pages/CommonPages/RegisterPage/RegisterForm/slice/types';
@@ -29,4 +30,5 @@ export interface RootState {
   memberBooks: MemberBooksState;
   memberReservations: MemberReservationsState;
   memberBook: MemberBookState;
+  emailConfirmation: EmailConfirmationState;
 }

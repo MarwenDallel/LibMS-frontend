@@ -3,6 +3,7 @@ const USER_PREFIX = `${API_PREFIX}/users`;
 const BOOK_PREFIX = `${API_PREFIX}/books`;
 const AUTHOR_PREFIX = `${API_PREFIX}/authors`;
 const RESERVATION_PREFIX = `${API_PREFIX}/reservations`;
+const EMAIL_CONFIRMATION_PREFIX = `${API_PREFIX}/confirmation-token`;
 
 export const USER_ENDPOINTS = {
   createUser: USER_PREFIX,
@@ -27,6 +28,10 @@ export const AUTHOR_ENDPOINTS = {
 export const RESERVATION_ENDPOINTS = {
   reservations: RESERVATION_PREFIX,
   userReservations: `${RESERVATION_PREFIX}/@me`,
+};
+
+export const EMAIL_CONFIRMATION_ENDPOINTS = {
+  confirm: (token: string) => `${EMAIL_CONFIRMATION_PREFIX}/${token}/confirm`,
 };
 
 export const ASSETS_ENDPOINTS = {
