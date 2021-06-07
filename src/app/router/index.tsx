@@ -3,6 +3,7 @@ import { Role } from 'app/configs/user-roles';
 import { AuthPage } from 'app/pages/CommonPages/AuthPage/Loadable';
 import { BookPage } from 'app/pages/CommonPages/BookPage';
 import { BooksPage } from 'app/pages/CommonPages/BooksPage';
+import { EmailConfirmation } from 'app/pages/CommonPages/EmailConfirmation';
 import { LoginPage } from 'app/pages/CommonPages/LoginPage/Loadable';
 import { LogoutPage } from 'app/pages/CommonPages/LogoutPage';
 import { RegisterPage } from 'app/pages/CommonPages/RegisterPage/Loadable';
@@ -35,6 +36,11 @@ const Router: React.FunctionComponent<Props> = ({ children }) => {
             <GuardedRoute exact path="/" component={AuthPage} />
             <GuardedRoute exact path="/login" component={LoginPage} />
             <GuardedRoute exact path="/register" component={RegisterPage} />
+            <GuardedRoute
+              exact
+              path="/confirm/:token"
+              component={EmailConfirmation}
+            />
 
             <GuardedRoute
               exact

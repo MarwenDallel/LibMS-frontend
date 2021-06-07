@@ -1,17 +1,11 @@
-import * as React from 'react';
-import { RegistrationForm } from './RegistrationForm';
 import { useYupValidationResolver } from 'app/services/validation/resolvers/Resolver';
 import { RegisterValidationScheme } from 'app/services/validation/schemes/Register';
+import * as React from 'react';
+import { Button, Col, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { Button, Col, Form, Alert } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { RegistrationForm } from './RegistrationForm';
 import { useRegistrationSlice } from './slice';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectErrorMessage,
-  selectIsError,
-  selectIsSuccess,
-} from './slice/selectors';
-import { Redirect } from 'react-router';
 
 export function RegisterForm() {
   const validEmailDomains = ['smu.tn', 'msb.tn', 'medtech.tn', 'lci.tn'];
@@ -23,23 +17,6 @@ export function RegisterForm() {
     data = { ...data, email: data.emailName + '' + data.emailDomain };
     dispatch(actions.requestRegister(data));
   };
-
-  const errorMessage = useSelector(selectErrorMessage);
-  const isError = useSelector(selectIsError);
-  const isSuccess = useSelector(selectIsSuccess);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [showAlert, setShowAlert] = React.useState(true);
-
-  function AlertDismissible() {
-    if (isError && showAlert) {
-      return (
-        <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
-          <Alert.Heading>{errorMessage}</Alert.Heading>
-        </Alert>
-      );
-    }
-    return null;
-  }
 
   const resolver = useYupValidationResolver(RegisterValidationScheme);
   const {
@@ -56,7 +33,6 @@ export function RegisterForm() {
       data-testid="registration-form"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <AlertDismissible />
       <Form.Group>
         <Form.Label htmlFor="firstName">First name</Form.Label>
         <Form.Control
@@ -174,7 +150,6 @@ export function RegisterForm() {
       <Button type="submit" className="w-75" data-testid="submit-button">
         Submit
       </Button>
-      {!!isSuccess && <Redirect to="/login" />}
     </Form>
   );
 }
