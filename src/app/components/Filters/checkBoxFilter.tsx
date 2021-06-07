@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'react-bootstrap';
 
 export function MultiCheckBoxColumnFilter({
   column: { filterValue, setFilter, preFilteredRows, id },
@@ -31,25 +32,18 @@ export function MultiCheckBoxColumnFilter({
     }
   };
 
-  return (
-    <div>
-      {Object.entries(options).map(([option, count], i) => {
-        return (
-          <div key={i}>
-            <input
-              className="form-check-input"
-              type="checkbox"
-              color="primary"
-              name={option}
-              id={option}
-              checked={checked.includes(option)}
-              onChange={onChange}
-              title={`${option} (${count})`}
-            />
-            {option}
-          </div>
-        );
-      })}
-    </div>
-  );
+  return Object.entries(options).map(([option, count], i) => {
+    return (
+      <Form.Check key={i} type="checkbox">
+        <Form.Check.Input
+          name={option}
+          id={option}
+          type="checkbox"
+          checked={checked.includes(option)}
+          onChange={onChange}
+        />
+        <Form.Check.Label>{option}</Form.Check.Label>
+      </Form.Check>
+    );
+  });
 }

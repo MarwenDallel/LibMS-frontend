@@ -77,10 +77,6 @@ export const GlobalStyle = createGlobalStyle`
   /*
   * Content
   */
-  [role="main"] {
-    padding-top: 48px; /* Space for fixed navbar */
-  }
-
   .navbar .form-control {
     padding: .75rem 1rem;
     border-width: 0;

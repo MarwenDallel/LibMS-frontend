@@ -1,6 +1,6 @@
 import { selectUserProfile } from 'app/pages/CommonPages/UserProfilePage/slice/selectors';
 import React from 'react';
-import { Badge, Container, Dropdown, Form } from 'react-bootstrap';
+import { Badge, Col, Container, Dropdown, Form, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Sidebar } from '../../../components/Sidebar/index';
@@ -14,11 +14,18 @@ export function DashboardPage() {
   return (
     <Router>
       <Container fluid>
-        <div className="row min-vh-100">
-          <Sidebar />
-          <main role="main" className="col-md-9 col-lg-10 mb-4 md-sm-auto">
-            <div className="d-flex justify-content-between mb-3">
-              <Form.Group>
+        <Row>
+          <Col
+            md={3}
+            lg={2}
+            className="d-none pt-4 d-md-block sidebar p-0"
+            style={{ backgroundColor: 'white' }}
+          >
+            <Sidebar />
+          </Col>
+          <Col md={9} lg={10} className="md-sm-auto pt-5 mb-4">
+            <div className="d-flex justify-content-between mx-3 mb-4">
+              <Form.Group className="m-0">
                 <Form.Control
                   type="text"
                   placeholder="Search books, categories"
@@ -49,7 +56,7 @@ export function DashboardPage() {
                 </Dropdown>
               </div>
             </div>
-            <div>
+            <Container fluid>
               <Switch>
                 <Route
                   path="/dashboard/books"
@@ -67,9 +74,9 @@ export function DashboardPage() {
                   render={() => <BookDescPage />}
                 />
               </Switch>
-            </div>
-          </main>
-        </div>
+            </Container>
+          </Col>
+        </Row>
       </Container>
     </Router>
   );

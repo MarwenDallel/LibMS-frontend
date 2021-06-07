@@ -7,7 +7,7 @@ interface Props {}
 
 export const Footer = memo((props: Props) => {
   return (
-    <CustomFooter className="text-lg-start">
+    <CustomFooter className="mt-auto text-lg-start">
       <Container>
         <img src={FooterLogo} alt="" />
       </Container>

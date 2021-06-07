@@ -6,13 +6,10 @@ import LibMSLogo from './assets/LibMS-logo.png';
 
 export const Sidebar = memo(() => {
   return (
-    <Nav
-      className="col-md-3 col-lg-2 d-none pt-4 d-md-block sidebar p-0"
-      style={{ backgroundColor: 'white' }}
-    >
-      <a className="nav-link mt-2 text-center" href="/">
+    <Nav>
+      <Nav.Link className="mt-2 mx-auto" href="/">
         <img className="img-fluid" src={LibMSLogo} alt="LibMS logo" />
-      </a>
+      </Nav.Link>
       <div className="sidebar-sticky mx-xl-3 mx-lg-auto">
         <Nav
           defaultActiveKey="/dashboard/books"

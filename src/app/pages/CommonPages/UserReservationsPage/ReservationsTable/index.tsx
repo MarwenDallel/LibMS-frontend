@@ -4,10 +4,10 @@ import { GlobalFilter } from 'app/components/Filters/globalFilter';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import {
-  useTable,
-  usePagination,
   useFilters,
   useGlobalFilter,
+  usePagination,
+  useTable,
 } from 'react-table';
 
 export function ReservationsTable({ columns, data }) {

@@ -5,96 +5,100 @@ exports[`<LoginPage  /> should match snapshot 1`] = `
   class="container-fluid"
 >
   <div
-    class="row min-vh-100"
+    class="row"
   >
     <div
-      class="col-md-3 col-lg-2 d-none pt-4 d-md-block sidebar p-0 nav"
+      class="d-none pt-4 d-md-block sidebar p-0 col-lg-2 col-md-3"
       style="background-color: white;"
     >
-      <a
-        class="nav-link mt-2 text-center"
-        href="/"
-      >
-        <img
-          alt="LibMS logo"
-          class="img-fluid"
-          src="LibMS-logo.png"
-        />
-      </a>
       <div
-        class="sidebar-sticky mx-xl-3 mx-lg-auto"
+        class="nav"
       >
+        <a
+          class="mt-2 mx-auto nav-link"
+          data-rb-event-key="/"
+          href="/"
+        >
+          <img
+            alt="LibMS logo"
+            class="img-fluid"
+            src="LibMS-logo.png"
+          />
+        </a>
         <div
-          class="d-flex flex-column align-self-stretch mt-2 nav"
+          class="sidebar-sticky mx-xl-3 mx-lg-auto"
         >
           <div
-            class="nav-item"
+            class="d-flex flex-column align-self-stretch mt-2 nav"
           >
-            <a
-              class="px-lg-1 nav-link"
-              href="/dashboard"
-              style="font-size: 1.3em;"
+            <div
+              class="nav-item"
             >
-              <i
-                class="bi bi-house-door mr-2"
-              />
-              Dashboard
-            </a>
-          </div>
-          <div
-            class="nav-item"
-          >
-            <a
-              class="px-lg-1 nav-link"
-              href="/dashboard/books"
-              style="font-size: 1.3em;"
+              <a
+                class="px-lg-1 nav-link"
+                href="/dashboard"
+                style="font-size: 1.3em;"
+              >
+                <i
+                  class="bi bi-house-door mr-2"
+                />
+                Dashboard
+              </a>
+            </div>
+            <div
+              class="nav-item"
             >
-              <i
-                class="bi bi-journal-bookmark-fill mr-2"
-              />
-              Library
-            </a>
-          </div>
-          <div
-            class="nav-item"
-          >
-            <a
-              class="px-lg-1 nav-link"
-              href="/dashboard/reservations"
-              style="font-size: 1.3em;"
+              <a
+                class="px-lg-1 nav-link"
+                href="/dashboard/books"
+                style="font-size: 1.3em;"
+              >
+                <i
+                  class="bi bi-journal-bookmark-fill mr-2"
+                />
+                Library
+              </a>
+            </div>
+            <div
+              class="nav-item"
             >
-              <i
-                class="bi bi-clipboard-check mr-2"
-              />
-              Reservations
-            </a>
-          </div>
-          <div
-            class="nav-item"
-          >
-            <a
-              class="px-lg-1 nav-link"
-              href="/dashboard"
-              style="font-size: 1.3em;"
+              <a
+                class="px-lg-1 nav-link"
+                href="/dashboard/reservations"
+                style="font-size: 1.3em;"
+              >
+                <i
+                  class="bi bi-clipboard-check mr-2"
+                />
+                Reservations
+              </a>
+            </div>
+            <div
+              class="nav-item"
             >
-              <i
-                class="bi bi-tags mr-2"
-              />
-              Categories
-            </a>
+              <a
+                class="px-lg-1 nav-link"
+                href="/dashboard"
+                style="font-size: 1.3em;"
+              >
+                <i
+                  class="bi bi-tags mr-2"
+                />
+                Categories
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <main
-      class="col-md-9 col-lg-10 mb-4 md-sm-auto"
-      role="main"
+    <div
+      class="md-sm-auto pt-5 mb-4 col-lg-10 col-md-9"
     >
       <div
-        class="d-flex justify-content-between mb-3"
+        class="d-flex justify-content-between mx-3 mb-4"
       >
         <div
-          class="form-group"
+          class="m-0 form-group"
         >
           <input
             class="form-control"
@@ -140,8 +144,10 @@ exports[`<LoginPage  /> should match snapshot 1`] = `
           </div>
         </div>
       </div>
-      <div />
-    </main>
+      <div
+        class="container-fluid"
+      />
+    </div>
   </div>
 </div>
 `;

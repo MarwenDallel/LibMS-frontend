@@ -30,7 +30,7 @@ export function App() {
         />
       </Helmet>
       <Router>{content => <Page>{content}</Page>}</Router>
-      <GlobalStyle></GlobalStyle>
+      <GlobalStyle />
     </>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'react-bootstrap';
 import { useAsyncDebounce } from 'react-table';
 
 export function GlobalFilter({
@@ -13,27 +14,17 @@ export function GlobalFilter({
   }, 200);
 
   return (
-    <div className="container-sm">
-      <div className="row">
-        <div className="col justify-content-md-center text-center font-weight-bold">
-          Search:{' '}
-        </div>
-      </div>
-      <div className="row">
-        <input
-          value={value || ''}
-          className="form-control form-control-sm"
-          onChange={e => {
-            setValue(e.target.value);
-            onChange(e.target.value);
-          }}
-          placeholder={`${count} records...`}
-          style={{
-            fontSize: '1.1rem',
-            border: '0',
-          }}
-        />
-      </div>
-    </div>
+    <>
+      <Form.Label className="font-weight-bold">Search</Form.Label>
+      <Form.Control
+        id="searchTable"
+        placeholder={`${count} records...`}
+        value={value || ''}
+        onChange={e => {
+          setValue(e.target.value);
+          onChange(e.target.value);
+        }}
+      />
+    </>
   );
 }
