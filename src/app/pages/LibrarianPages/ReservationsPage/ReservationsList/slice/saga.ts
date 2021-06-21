@@ -42,6 +42,19 @@ export function* rejectReservationSaga(action) {
   }
 }
 
+export function* checkoutReservation(action) {
+  try {
+    yield call(
+      request.patch,
+      `${RESERVATION_ENDPOINTS.reservations}/${action.payload}/check-out`,
+    );
+    yield put(actions.checkoutReservation(action.payload));
+    yield put(actions.requestSuccess());
+  } catch (error) {
+    yield put(actions.requestFailed(error.message));
+  }
+}
+
 export function* fetchReservationsRootState() {
   yield all([
     yield takeLatest(actions.requestReservations.type, fetchReservationsSaga),
@@ -52,6 +65,10 @@ export function* fetchReservationsRootState() {
     yield takeLatest(
       actions.requestRejectReservation.type,
       rejectReservationSaga,
+    ),
+    yield takeLatest(
+      actions.requestCheckoutReservation.type,
+      checkoutReservation,
     ),
   ]);
 }

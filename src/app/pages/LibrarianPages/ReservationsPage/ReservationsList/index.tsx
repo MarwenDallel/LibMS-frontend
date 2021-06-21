@@ -1,8 +1,8 @@
 import { MultiCheckBoxColumnFilter } from 'app/components/Filters/checkBoxFilter';
 import React, { memo, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { DashboardTable } from '../../DashboardPage/dashboardTable';
+import ReservationActionsHandler from '../ReservationActionsHandler';
 import { useFetchReservationsSlice } from './slice';
 import { selectReservations } from './slice/selectors';
 
@@ -19,13 +19,6 @@ export const ReservationsList = memo(() => {
   useEffectOnMount(() => {
     dispatch(actions.requestReservations());
   });
-
-  const handleAcceptReservation = (id: string): void => {
-    dispatch(actions.requestAcceptReservation(id));
-  };
-  const handleRejectReservation = (id: string): void => {
-    dispatch(actions.requestRejectReservation(id));
-  };
 
   const columns = React.useMemo(
     () => [
@@ -80,26 +73,11 @@ export const ReservationsList = memo(() => {
         disableFilters: true,
         Cell: value => {
           const reservation = value.row.original;
-          return (
-            <>
-              <Button
-                disabled={reservation.reservationStatus !== 'pending'}
-                onClick={() => handleAcceptReservation(reservation.id)}
-                className="btn-success btn-sm mr-1"
-                block
-              >
-                Accept
-              </Button>
-              <Button
-                disabled={reservation.reservationStatus !== 'pending'}
-                onClick={() => handleRejectReservation(reservation.id)}
-                className="btn-danger btn-sm mr-1"
-                block
-              >
-                Reject
-              </Button>
-            </>
+          const buttons = (
+            <ReservationActionsHandler reservation={reservation} />
           );
+
+          return buttons;
         },
       },
     ],

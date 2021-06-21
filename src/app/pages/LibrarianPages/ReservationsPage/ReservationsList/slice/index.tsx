@@ -50,6 +50,22 @@ const slice = createSlice({
         });
     },
 
+    // Checkout reservation by ID
+    requestCheckoutReservation(state, action: PayloadAction<string>) {
+      state.isFetching = true;
+    },
+    checkoutReservation(state, action: PayloadAction<string>) {
+      state.reservations
+        .filter(reservation => reservation.id === action.payload)
+        .map(reservation => {
+          reservation.reservationStatus = ReservationStatus.checkedOut;
+          reservation.returnDate = new Date(
+            Date.now() + 15 * 24 * 3600 * 1000,
+          ).toISOString(); // expires after 15 days
+          return reservation;
+        });
+    },
+
     // Generic response (this is stupid)
     requestSuccess(state) {
       state.isSuccess = true;
