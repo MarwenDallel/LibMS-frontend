@@ -30,7 +30,7 @@ export function RegisterPage(props: Props) {
     <AlertMessage
       message={
         <p>
-          You have been successfully registered. An link has been sent to your
+          You have been successfully registered. A link has been sent to your
           email for verification.
         </p>
       }
