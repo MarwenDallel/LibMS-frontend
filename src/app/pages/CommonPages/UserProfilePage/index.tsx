@@ -7,10 +7,9 @@ import { Footer } from 'app/components/Footer';
 import { Header } from 'app/components/Header';
 import { Role } from 'app/configs/user-roles';
 import * as React from 'react';
-import { ButtonGroup, Container, Spinner } from 'react-bootstrap';
+import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components/macro';
+import FeatureCard from './FeatureCard';
 import { useUserProfileSlice } from './slice';
 import {
   selectFirstName,
@@ -55,54 +54,38 @@ export function UserProfilePage(props: Props) {
             firstName + ' ' + lastName
           )}
         </div>
-        <ButtonContainer>
-          <ButtonGroup
-            className="d-flex justify-content-center"
-            size="lg"
-            vertical
-          >
-            {role === Role.Librarian && (
-              <>
-                <Link
-                  className="btn btn-warning w-100 btn-block"
-                  role="button"
-                  to="/dashboard/books"
-                >
-                  Continue to Dashboard
-                </Link>
-                <Link
-                  className="btn btn-success w-100 btn-block"
-                  role="button"
-                  to="/add-book"
-                >
-                  Add a Book
-                </Link>
-              </>
-            )}
-            <Link
-              className="btn btn-primary w-100 btn-block"
-              role="button"
-              to="/books"
-            >
-              List of Books
-            </Link>
-            <Link
-              className="btn btn-info w-100 btn-block"
-              role="button"
-              to="/list-reservations"
-            >
-              My Reservations
-            </Link>
-          </ButtonGroup>
-        </ButtonContainer>
+        <Row className="justify-content-center">
+          {role === Role.Librarian && (
+            <>
+              <Col md="auto">
+                <FeatureCard
+                  icon="speedometer2"
+                  title="Dashboard"
+                  link="/dashboard"
+                />
+              </Col>
+              <Col md="auto">
+                <FeatureCard
+                  icon="journal-plus"
+                  title="Add Book"
+                  link="/add-book"
+                />
+              </Col>
+            </>
+          )}
+          <Col md="auto">
+            <FeatureCard icon="card-list" title="List of Books" link="/books" />
+          </Col>
+          <Col md="auto">
+            <FeatureCard
+              icon="calendar2-week"
+              title="My Reservations"
+              link="/list-reservations"
+            />
+          </Col>
+        </Row>
       </Container>
       <Footer />
     </>
   );
 }
-
-const ButtonContainer = styled(Container)`
-  @media (min-width: 768px) {
-    max-width: 40rem !important;
-  }
-`;
